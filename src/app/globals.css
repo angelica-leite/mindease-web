@@ -1,26 +1,168 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* MindEase Design System - Tailwind CSS v4 
+  Foco: Acessibilidade Cognitiva e Performance
+*/
+
+@theme {
+  /* Fontes */
+  --font-sans: "Inter", "system-ui", sans-serif;
+  --font-display: "Outfit", "system-ui", sans-serif;
+
+  /* Cores de Sistema (Ajustadas para v4) */
+  --color-background: hsl(180 20% 99%);
+  --color-foreground: hsl(200 25% 20%);
+
+  --color-card: hsl(180 15% 98%);
+  --color-card-foreground: hsl(200 25% 20%);
+
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(200 25% 20%);
+
+  --color-primary: hsl(168 50% 42%);
+  --color-primary-foreground: hsl(0 0% 100%);
+
+  --color-secondary: hsl(250 30% 95%);
+  --color-secondary-foreground: hsl(250 25% 35%);
+
+  --color-muted: hsl(200 15% 94%);
+  --color-muted-foreground: hsl(200 15% 45%);
+
+  --color-accent: hsl(25 70% 92%);
+  --color-accent-foreground: hsl(25 60% 35%);
+
+  --color-destructive: hsl(0 55% 60%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+
+  --color-success: hsl(145 50% 45%);
+  --color-success-foreground: hsl(0 0% 100%);
+
+  --color-warning: hsl(38 80% 55%);
+  --color-warning-foreground: hsl(38 80% 15%);
+
+  --color-focus: hsl(210 60% 55%);
+  --color-focus-foreground: hsl(0 0% 100%);
+
+  --color-border: hsl(200 20% 88%);
+  --color-input: hsl(200 20% 92%);
+  --color-ring: hsl(168 50% 42%);
+
+  /* Sidebar */
+  --color-sidebar-background: hsl(180 15% 97%);
+  --color-sidebar-foreground: hsl(200 25% 30%);
+  --color-sidebar-primary: hsl(168 50% 42%);
+  --color-sidebar-primary-foreground: hsl(0 0% 100%);
+  --color-sidebar-accent: hsl(180 20% 94%);
+  --color-sidebar-accent-foreground: hsl(200 25% 25%);
+  --color-sidebar-border: hsl(200 15% 90%);
+  --color-sidebar-ring: hsl(168 50% 42%);
+
+  /* Border Radius */
+  --radius-lg: 1rem;
+  --radius-md: calc(1rem - 2px);
+  --radius-sm: calc(1rem - 4px);
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+
+  /* Espaçamento Customizado */
+  --spacing-18: 4.5rem;
+  --spacing-88: 22rem;
+
+  /* Animações e Keyframes nativos v4 */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes breathe {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.02);
+    }
+  }
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+  --animate-breathe: breathe 4s ease-in-out infinite;
+  --animate-pulse-soft: pulse-soft 3s ease-in-out infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* Camada Base */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --gradient-calm: linear-gradient(
+      135deg,
+      hsl(168 50% 42%) 0%,
+      hsl(180 45% 50%) 100%
+    );
+    --shadow-card: 0 4px 16px -4px hsl(200 20% 20% / 0.1);
+    --spacing-relaxed: 1.5;
+  }
+
+  .dark {
+    --color-background: hsl(200 25% 8%);
+    --color-foreground: hsl(180 15% 92%);
+    --color-card: hsl(200 20% 11%);
+    --color-primary: hsl(168 45% 50%);
+    --color-border: hsl(200 15% 20%);
+    /* ... outras cores dark conforme sua necessidade */
+  }
+
+  * {
+    @apply border-border outline-ring;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased font-sans;
+    line-height: var(--spacing-relaxed);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-medium tracking-tight;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Camada de Componentes */
+@layer components {
+  .mindease-card {
+    @apply bg-card rounded-3xl p-6 border border-border;
+    box-shadow: var(--shadow-card);
+  }
+
+  .mindease-button-primary {
+    background: var(--gradient-calm);
+    @apply text-primary-foreground font-medium px-6 py-3 rounded-2xl;
+    @apply transition-all duration-300 ease-out;
+    @apply hover:scale-[1.02] hover:shadow-lg;
+  }
 }
