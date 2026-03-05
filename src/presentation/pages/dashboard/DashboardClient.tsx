@@ -54,7 +54,7 @@ export default function DashboardClient() {
         >
           <CognitiveAlert
             type="breathe"
-            message="Lembre-se: respire fundo. Voce esta fazendo um otimo trabalho."
+            message="Lembre-se: respire fundo. Você está fazendo um ótimo trabalho."
             onDismiss={dismissAlert}
           />
         </motion.div>
