@@ -138,11 +138,13 @@ Cobertura atual inclui:
 
 - CI em `.github/workflows/ci.yml`
   - Triggers: `pull_request` e `push` nas branches principais
-  - Passos: `npm ci`, `npm run format:check`, `npm run lint`, `npm run test`, `npm run build`
+  - Passos: `npm ci`, `npm run format:check`, `npm run lint`, `npm run test -- --ci --coverage`, `npm run build`
   - Objetivo: bloquear merge com regressao de qualidade
 - CD em `.github/workflows/cd.yml`
-  - Trigger: merge em branch de release/producao
-  - Passos: build de producao + deploy no provedor alvo
+  - Trigger principal: `workflow_run` apos CI bem-sucedido em `main/master`
+  - Trigger manual: `workflow_dispatch`
+  - Passos: build de producao e deploy na Vercel quando os secrets estiverem configurados
+  - Secrets necessarios: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`
   - Objetivo: deploy reprodutivel e previsivel
 
 ## 12. Convencao para contribuicao
