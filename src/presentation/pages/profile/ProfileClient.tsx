@@ -13,7 +13,7 @@ export default function ProfileClient() {
     <div className={styles.page}>
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className={styles.title}>Meu Perfil</h1>
-        <p className={styles.description}>Suas informacoes e progresso</p>
+        <p className={styles.description}>Suas informações e progresso</p>
       </motion.div>
 
       <motion.div
@@ -28,7 +28,7 @@ export default function ProfileClient() {
           </div>
 
           <div className={styles.profileInfo}>
-            <h2 className={styles.profileName}>Usuario MindEase</h2>
+            <h2 className={styles.profileName}>Usuário MindEase</h2>
 
             <div className={styles.infoRow}>
               <Mail className={styles.infoIcon} />
@@ -37,7 +37,7 @@ export default function ProfileClient() {
 
             <div className={styles.infoRow}>
               <Calendar className={styles.infoIcon} />
-              <span className={styles.infoText}>Membro desde Janeiro 2025</span>
+              <span className={styles.infoText}>Membro desde Janeiro 2026</span>
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@ export default function ProfileClient() {
             <Award className={styles.statIconSuccess} />
           </div>
           <p className={styles.statValue}>{completedTasks}</p>
-          <p className={styles.statLabel}>Tarefas Concluidas</p>
+          <p className={styles.statLabel}>Tarefas Concluídas</p>
         </div>
 
         <div className={styles.statCard}>
@@ -62,7 +62,7 @@ export default function ProfileClient() {
             <Award className={styles.statIconFocus} />
           </div>
           <p className={styles.statValue}>12</p>
-          <p className={styles.statLabel}>Sessoes de Foco</p>
+          <p className={styles.statLabel}>Sessões de Foco</p>
         </div>
 
         <div className={styles.statCard}>

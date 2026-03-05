@@ -122,7 +122,7 @@ export function AccessibilityPanel() {
             </div>
             <div>
               <Label htmlFor="reduced-motion" className={styles.label}>
-                Reduzir Animacoes
+                Reduzir animações
               </Label>
               <p className={styles.sectionDescription}>Minimiza movimentos na tela</p>
             </div>
@@ -142,9 +142,9 @@ export function AccessibilityPanel() {
             </div>
             <div>
               <Label htmlFor="simplified" className={styles.label}>
-                Visualizacao Simplificada
+                Visualização simplificada
               </Label>
-              <p className={styles.sectionDescription}>Remove elementos nao essenciais</p>
+              <p className={styles.sectionDescription}>Remove elementos não essenciais</p>
             </div>
           </div>
 
