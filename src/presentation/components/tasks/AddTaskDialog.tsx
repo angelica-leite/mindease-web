@@ -3,6 +3,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/presentation/components/ui/dialog";
@@ -48,6 +49,9 @@ export function AddTaskDialog({
       <DialogContent className={styles.dialogContent}>
         <DialogHeader>
           <DialogTitle className={styles.dialogTitle}>Nova Tarefa</DialogTitle>
+          <DialogDescription>
+            Preencha os campos para criar uma nova tarefa.
+          </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={submit} className={styles.form}>
