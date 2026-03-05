@@ -51,7 +51,6 @@ function readStoredSettings(): AccessibilitySettings {
 
     const parsed = JSON.parse(saved) as Partial<AccessibilitySettings>;
 
-    // merge + garante fallback caso falte algo
     return { ...defaultSettings, ...parsed };
   } catch {
     return defaultSettings;
@@ -65,18 +64,14 @@ interface AccessibilityProviderProps {
 export function AccessibilityProvider({ children }: AccessibilityProviderProps) {
   const [settings, setSettings] = useState<AccessibilitySettings>(() => readStoredSettings());
 
-  // Persist + aplica no DOM
   useEffect(() => {
-    // Persist
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
     } catch {
-      // ignore
     }
 
     const root = document.documentElement;
 
-    // CSS vars
     const fontSizes: Record<AccessibilitySettings["fontSize"], string> = {
       small: "14px",
       medium: "16px",
@@ -92,7 +87,6 @@ export function AccessibilityProvider({ children }: AccessibilityProviderProps) 
     };
     root.style.setProperty("--spacing-relaxed", spacingValues[settings.spacing]);
 
-    // Classes
     root.classList.toggle("reduce-motion", settings.reducedMotion);
     root.classList.toggle("high-contrast", settings.contrast === "high");
     root.classList.toggle("simplified-view", settings.simplifiedView);

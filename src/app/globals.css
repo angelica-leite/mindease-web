@@ -1,20 +1,17 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-/* ---break---
-*/
+
 @custom-variant dark (&:is(.dark *));
 
-/* MindEase Design System - Tailwind CSS v4 
-  Foco: Acessibilidade Cognitiva e Performance
-*/
+
 
 @theme {
-  /* Fontes */
+  
   --font-sans: "Inter", "system-ui", sans-serif;
   --font-display: "Outfit", "system-ui", sans-serif;
 
-  /* Cores de Sistema (Ajustadas para v4) */
+  
   --color-background: hsl(180 20% 99%);
   --color-foreground: hsl(200 25% 20%);
 
@@ -52,18 +49,18 @@
   --color-input: hsl(200 20% 92%);
   --color-ring: hsl(168 50% 42%);
 
-  /* Border Radius */
+  
   --radius-lg: 1rem;
   --radius-md: calc(1rem - 2px);
   --radius-sm: calc(1rem - 4px);
   --radius-2xl: 1rem;
   --radius-3xl: 1.5rem;
 
-  /* Espaçamento Customizado */
+  
   --spacing-18: 4.5rem;
   --spacing-88: 22rem;
 
-  /* Animações e Keyframes nativos v4 */
+  
   @keyframes fade-in {
     from {
       opacity: 0;
@@ -98,7 +95,7 @@
   --animate-pulse-soft: pulse-soft 3s ease-in-out infinite;
 }
 
-/* Camada Base */
+
 @layer base {
   :root {
     --gradient-calm: linear-gradient(135deg, hsl(168 50% 42%) 0%, hsl(180 45% 50%) 100%);
@@ -108,7 +105,7 @@
     --base-font-size: 16px;
   }
 
-  /* ✅ aplica a fonte base no documento */
+  
   html {
     font-size: var(--base-font-size);
   }
@@ -119,7 +116,7 @@
     --color-card: hsl(200 20% 11%);
     --color-primary: hsl(168 45% 50%);
     --color-border: hsl(200 15% 20%);
-    /* ... outras cores dark conforme sua necessidade */
+    
   }
 
   * {
@@ -151,7 +148,7 @@
   }
 }
 
-/* Camada de Componentes */
+
 @layer components {
   .mindease-card {
     @apply bg-card rounded-3xl p-6 border border-border;
@@ -165,8 +162,7 @@
     @apply hover:scale-[1.02] hover:shadow-lg;
   }
 }
-/* ---break---
-*/
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -207,8 +203,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 }
-/* ---break---
-*/
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -243,8 +238,7 @@
   --sidebar-border: oklch(92.473% 0.00611 224.193);
   --sidebar-ring: oklch(64.241% 0.10218 176.496);
 }
-/* ---break---
-*/
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -279,9 +273,7 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-/* =========================
-   Accessibility toggles
-   ========================= */
+
 
 .reduce-motion *,
 .reduce-motion *::before,
@@ -292,7 +284,7 @@
   scroll-behavior: auto !important;
 }
 
-/* Contraste alto */
+
 .high-contrast {
   filter: contrast(1.15) saturate(1.05);
 }
@@ -302,7 +294,8 @@
   outline-offset: 3px;
 }
 
-/* Visual simplificado */
+
 .simplified-view .mindease-card {
   box-shadow: none;
 }
+

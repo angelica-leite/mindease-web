@@ -8,15 +8,10 @@ import { mainLayoutClientClasses as styles } from "@/presentation/layouts/MainLa
 export default function MainLayoutClient({ children }: { readonly children: React.ReactNode }) {
   return (
     <div className={styles.root}>
-      {/* Mobile Navigation */}
       <MobileNav />
-
-      {/* Desktop Sidebar - hidden on mobile */}
       <div className={styles.desktopSidebarWrapper}>
         <Sidebar />
       </div>
-
-      {/* Main Content */}
       <main className={styles.main}>
         <div className={styles.content}>{children}</div>
       </main>
