@@ -60,7 +60,7 @@ export function AccessibilityPanel() {
             <Maximize2 className={styles.iconFocus} />
           </div>
           <div>
-            <h3 className={styles.sectionTitle}>Espacamento</h3>
+            <h3 className={styles.sectionTitle}>Espaçamento</h3>
             <p className={styles.sectionDescription}>Controle o respiro visual entre elementos</p>
           </div>
         </div>
