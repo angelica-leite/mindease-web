@@ -1,46 +1,47 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { User, Mail, Calendar, Award } from "lucide-react";
+import { Award, Calendar, Mail, User } from "lucide-react";
 
 import { useProfileViewModel } from "@/presentation/hooks/useProfileViewModel";
+import { profileClientClasses as styles } from "@/presentation/pages/profile/ProfileClient.styles";
 
 export default function ProfileClient() {
   const { completedTasks } = useProfileViewModel();
 
   return (
-    <div className="space-y-8">
+    <div className={styles.page}>
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="mb-1 text-3xl font-display font-bold text-foreground">
+        <h1 className={styles.title}>
           Meu Perfil
         </h1>
-        <p className="text-muted-foreground">Suas informacoes e progresso</p>
+        <p className={styles.description}>Suas informacoes e progresso</p>
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="mindease-card"
+        className={styles.profileCard}
       >
-        <div className="flex items-center gap-6">
-          <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10">
-            <User className="h-10 w-10 text-primary" />
+        <div className={styles.profileCardContent}>
+          <div className={styles.avatarWrapper}>
+            <User className={styles.avatarIcon} />
           </div>
 
-          <div className="flex-1">
-            <h2 className="text-xl font-display font-semibold text-foreground">
+          <div className={styles.profileInfo}>
+            <h2 className={styles.profileName}>
               Usuario MindEase
             </h2>
 
-            <div className="mt-1 flex items-center gap-2 text-muted-foreground">
-              <Mail className="h-4 w-4" />
-              <span className="text-sm">usuario@example.com</span>
+            <div className={styles.infoRow}>
+              <Mail className={styles.infoIcon} />
+              <span className={styles.infoText}>usuario@example.com</span>
             </div>
 
-            <div className="mt-1 flex items-center gap-2 text-muted-foreground">
-              <Calendar className="h-4 w-4" />
-              <span className="text-sm">Membro desde Janeiro 2025</span>
+            <div className={styles.infoRow}>
+              <Calendar className={styles.infoIcon} />
+              <span className={styles.infoText}>Membro desde Janeiro 2025</span>
             </div>
           </div>
         </div>
@@ -50,32 +51,32 @@ export default function ProfileClient() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="grid gap-4 md:grid-cols-3"
+        className={styles.statsGrid}
       >
-        <div className="mindease-card text-center">
-          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-success/10">
-            <Award className="h-6 w-6 text-success" />
+        <div className={styles.statCard}>
+          <div className={styles.statIconSuccessWrapper}>
+            <Award className={styles.statIconSuccess} />
           </div>
-          <p className="text-3xl font-display font-bold text-foreground">
+          <p className={styles.statValue}>
             {completedTasks}
           </p>
-          <p className="text-sm text-muted-foreground">Tarefas Concluidas</p>
+          <p className={styles.statLabel}>Tarefas Concluidas</p>
         </div>
 
-        <div className="mindease-card text-center">
-          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-focus/10">
-            <Award className="h-6 w-6 text-focus" />
+        <div className={styles.statCard}>
+          <div className={styles.statIconFocusWrapper}>
+            <Award className={styles.statIconFocus} />
           </div>
-          <p className="text-3xl font-display font-bold text-foreground">12</p>
-          <p className="text-sm text-muted-foreground">Sessoes de Foco</p>
+          <p className={styles.statValue}>12</p>
+          <p className={styles.statLabel}>Sessoes de Foco</p>
         </div>
 
-        <div className="mindease-card text-center">
-          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-            <Award className="h-6 w-6 text-primary" />
+        <div className={styles.statCard}>
+          <div className={styles.statIconPrimaryWrapper}>
+            <Award className={styles.statIconPrimary} />
           </div>
-          <p className="text-3xl font-display font-bold text-foreground">5h</p>
-          <p className="text-sm text-muted-foreground">Tempo de Foco</p>
+          <p className={styles.statValue}>5h</p>
+          <p className={styles.statLabel}>Tempo de Foco</p>
         </div>
       </motion.div>
     </div>

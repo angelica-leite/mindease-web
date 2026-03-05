@@ -3,10 +3,11 @@
 import React from "react";
 import { Type, Contrast, Maximize2, Sparkles, Eye } from "lucide-react";
 
-import { Switch } from "@/presentation/components/ui/switch";
 import { Label } from "@/presentation/components/ui/label";
+import { Switch } from "@/presentation/components/ui/switch";
 import { cn } from "@/presentation/lib/utils";
 import { useAccessibilityPanelViewModel } from "@/presentation/hooks/useAccessibilityPanelViewModel";
+import { accessibilityPanelClasses as styles } from "@/presentation/components/accessibility/AccessibilityPanel.styles";
 
 export function AccessibilityPanel() {
   const {
@@ -22,33 +23,33 @@ export function AccessibilityPanel() {
   } = useAccessibilityPanelViewModel();
 
   return (
-    <div className="space-y-8">
-      <div className="mindease-card">
-        <div className="mb-4 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
-            <Type className="h-5 w-5 text-primary" />
+    <div className={styles.page}>
+      <div className={styles.card}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.iconBoxPrimary}>
+            <Type className={styles.iconPrimary} />
           </div>
           <div>
-            <h3 className="font-display font-semibold text-foreground">
+            <h3 className={styles.sectionTitle}>
               Tamanho da Fonte
             </h3>
-            <p className="text-sm text-muted-foreground">
+            <p className={styles.sectionDescription}>
               Ajuste o tamanho do texto
             </p>
           </div>
         </div>
 
-        <div className="flex gap-2">
+        <div className={styles.optionGroup}>
           {fontSizes.map((size) => (
             <button
               key={size.value}
               type="button"
               onClick={() => setFontSize(size.value)}
               className={cn(
-                "flex-1 rounded-xl py-3 font-medium transition-all",
+                styles.optionButtonBase,
                 settings.fontSize === size.value
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80",
+                  ? styles.optionButtonPrimarySelected
+                  : styles.optionButtonDefault,
               )}
               title={size.title}
             >
@@ -58,32 +59,32 @@ export function AccessibilityPanel() {
         </div>
       </div>
 
-      <div className="mindease-card">
-        <div className="mb-4 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-focus/10">
-            <Maximize2 className="h-5 w-5 text-focus" />
+      <div className={styles.card}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.iconBoxFocus}>
+            <Maximize2 className={styles.iconFocus} />
           </div>
           <div>
-            <h3 className="font-display font-semibold text-foreground">
+            <h3 className={styles.sectionTitle}>
               Espacamento
             </h3>
-            <p className="text-sm text-muted-foreground">
+            <p className={styles.sectionDescription}>
               Controle o respiro visual entre elementos
             </p>
           </div>
         </div>
 
-        <div className="flex gap-2">
+        <div className={styles.optionGroup}>
           {spacings.map((spacing) => (
             <button
               key={spacing.value}
               type="button"
               onClick={() => setSpacing(spacing.value)}
               className={cn(
-                "flex-1 rounded-xl py-3 font-medium transition-all",
+                styles.optionButtonBase,
                 settings.spacing === spacing.value
-                  ? "bg-focus text-focus-foreground"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80",
+                  ? styles.optionButtonFocusSelected
+                  : styles.optionButtonDefault,
               )}
             >
               {spacing.label}
@@ -92,30 +93,30 @@ export function AccessibilityPanel() {
         </div>
       </div>
 
-      <div className="mindease-card">
-        <div className="mb-4 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-warning/10">
-            <Contrast className="h-5 w-5 text-warning" />
+      <div className={styles.card}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.iconBoxWarning}>
+            <Contrast className={styles.iconWarning} />
           </div>
           <div>
-            <h3 className="font-display font-semibold text-foreground">Contraste</h3>
-            <p className="text-sm text-muted-foreground">
+            <h3 className={styles.sectionTitle}>Contraste</h3>
+            <p className={styles.sectionDescription}>
               Aumente a visibilidade dos elementos
             </p>
           </div>
         </div>
 
-        <div className="flex gap-2">
+        <div className={styles.optionGroup}>
           {contrastLevels.map((level) => (
             <button
               key={level.value}
               type="button"
               onClick={() => setContrast(level.value)}
               className={cn(
-                "flex-1 rounded-xl py-3 font-medium transition-all",
+                styles.optionButtonBase,
                 settings.contrast === level.value
-                  ? "bg-warning text-warning-foreground"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80",
+                  ? styles.optionButtonWarningSelected
+                  : styles.optionButtonDefault,
               )}
             >
               {level.label}
@@ -124,20 +125,20 @@ export function AccessibilityPanel() {
         </div>
       </div>
 
-      <div className="mindease-card space-y-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-success/10">
-              <Sparkles className="h-5 w-5 text-success" />
+      <div className={styles.cardWithSpacing}>
+        <div className={styles.controlRow}>
+          <div className={styles.sectionHeader}>
+            <div className={styles.iconBoxSuccess}>
+              <Sparkles className={styles.iconSuccess} />
             </div>
             <div>
               <Label
                 htmlFor="reduced-motion"
-                className="font-medium text-foreground"
+                className={styles.label}
               >
                 Reduzir Animacoes
               </Label>
-              <p className="text-sm text-muted-foreground">
+              <p className={styles.sectionDescription}>
                 Minimiza movimentos na tela
               </p>
             </div>
@@ -150,16 +151,16 @@ export function AccessibilityPanel() {
           />
         </div>
 
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary">
-              <Eye className="h-5 w-5 text-secondary-foreground" />
+        <div className={styles.controlRow}>
+          <div className={styles.sectionHeader}>
+            <div className={styles.iconBoxSecondary}>
+              <Eye className={styles.iconSecondary} />
             </div>
             <div>
-              <Label htmlFor="simplified" className="font-medium text-foreground">
+              <Label htmlFor="simplified" className={styles.label}>
                 Visualizacao Simplificada
               </Label>
-              <p className="text-sm text-muted-foreground">
+              <p className={styles.sectionDescription}>
                 Remove elementos nao essenciais
               </p>
             </div>

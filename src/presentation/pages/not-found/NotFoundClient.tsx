@@ -2,17 +2,17 @@
 
 import Link from "next/link";
 
+import { notFoundClientClasses as styles } from "@/presentation/pages/not-found/NotFoundClient.styles";
+
 export default function NotFoundClient() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">
-          Ops! Página não encontrada
-        </p>
+    <div className={styles.page}>
+      <div className={styles.content}>
+        <h1 className={styles.code}>404</h1>
+        <p className={styles.description}>Ops! Pagina nao encontrada</p>
 
-        <Link href="/" className="text-primary underline hover:text-primary/90">
-          Voltar para o início
+        <Link href="/" className={styles.homeLink}>
+          Voltar para o inicio
         </Link>
       </div>
     </div>

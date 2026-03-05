@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { Sidebar } from "@/presentation/layouts/Sidebar";
 import { MobileNav } from "@/presentation/layouts/MobileNav";
-import { cn } from "@/presentation/lib/utils";
+import { Sidebar } from "@/presentation/layouts/Sidebar";
+import { mainLayoutClientClasses as styles } from "@/presentation/layouts/MainLayoutClient.styles";
 
 export default function MainLayoutClient({
   children,
@@ -11,24 +11,18 @@ export default function MainLayoutClient({
   readonly children: React.ReactNode;
 }) {
   return (
-    <div className={cn("min-h-screen bg-background")}>
+    <div className={styles.root}>
       {/* Mobile Navigation */}
       <MobileNav />
 
       {/* Desktop Sidebar - hidden on mobile */}
-      <div className="hidden md:block">
+      <div className={styles.desktopSidebarWrapper}>
         <Sidebar />
       </div>
 
       {/* Main Content */}
-      <main
-        className={cn(
-          "min-h-screen",
-          "pt-16 px-4 pb-6",
-          "md:pt-0 md:ml-64 md:p-8",
-        )}
-      >
-        <div className="mx-auto max-w-6xl">{children}</div>
+      <main className={styles.main}>
+        <div className={styles.content}>{children}</div>
       </main>
     </div>
   );

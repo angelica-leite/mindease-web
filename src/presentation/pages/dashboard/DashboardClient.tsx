@@ -2,14 +2,15 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 
-import { QuickStats } from "@/presentation/components/dashboard/QuickStats";
 import { CognitiveAlert } from "@/presentation/components/dashboard/CognitiveAlert";
-import { TaskCard } from "@/presentation/components/tasks/TaskCard";
+import { QuickStats } from "@/presentation/components/dashboard/QuickStats";
 import { Button } from "@/presentation/components/ui/button";
+import { TaskCard } from "@/presentation/components/tasks/TaskCard";
 import { useDashboardViewModel } from "@/presentation/hooks/useDashboardViewModel";
+import { dashboardClientClasses as styles } from "@/presentation/pages/dashboard/DashboardClient.styles";
 
 export default function DashboardClient() {
   const {
@@ -26,24 +27,24 @@ export default function DashboardClient() {
   } = useDashboardViewModel();
 
   return (
-    <div className="space-y-8">
+    <div className={styles.page}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex items-end justify-between"
+        className={styles.hero}
       >
         <div>
-          <h1 className="mb-1 text-3xl font-display font-bold text-foreground">
+          <h1 className={styles.title}>
             {greeting}
           </h1>
-          <p className="text-muted-foreground">
+          <p className={styles.subtitle}>
             Vamos organizar suas tarefas com calma
           </p>
         </div>
 
         <Link href="/pomodoro">
-          <Button className="mindease-button-primary">
-            <Sparkles className="mr-2 h-4 w-4" />
+          <Button className={styles.focusButton}>
+            <Sparkles className={styles.focusButtonIcon} />
             Iniciar Foco
           </Button>
         </Link>
@@ -75,22 +76,22 @@ export default function DashboardClient() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="grid gap-6 md:grid-cols-2"
+        className={styles.columnsGrid}
       >
         <div>
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-display font-semibold text-foreground">
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>
               Em Progresso
             </h2>
             <Link
               href="/tasks"
-              className="flex items-center gap-1 text-sm text-primary hover:underline"
+              className={styles.sectionLink}
             >
-              Ver todas <ArrowRight className="h-3 w-3" />
+              Ver todas <ArrowRight className={styles.sectionLinkIcon} />
             </Link>
           </div>
 
-          <div className="space-y-3">
+          <div className={styles.cardsStack}>
             {topInProgressTasks.map((task) => (
               <TaskCard
                 key={task.id}
@@ -103,12 +104,12 @@ export default function DashboardClient() {
             ))}
 
             {inProgressCount === 0 && (
-              <div className="mindease-card py-8 text-center">
-                <p className="text-muted-foreground">
+              <div className={styles.emptyStateCard}>
+                <p className={styles.emptyStateText}>
                   Nenhuma tarefa em progresso
                 </p>
                 <Link href="/tasks">
-                  <Button variant="link" className="mt-2">
+                  <Button variant="link" className={styles.emptyStateButton}>
                     Iniciar uma tarefa
                   </Button>
                 </Link>
@@ -118,19 +119,19 @@ export default function DashboardClient() {
         </div>
 
         <div>
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-display font-semibold text-foreground">
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>
               A Fazer
             </h2>
             <Link
               href="/tasks"
-              className="flex items-center gap-1 text-sm text-primary hover:underline"
+              className={styles.sectionLink}
             >
-              Ver todas <ArrowRight className="h-3 w-3" />
+              Ver todas <ArrowRight className={styles.sectionLinkIcon} />
             </Link>
           </div>
 
-          <div className="space-y-3">
+          <div className={styles.cardsStack}>
             {topTodoTasks.map((task) => (
               <TaskCard
                 key={task.id}
@@ -143,8 +144,8 @@ export default function DashboardClient() {
             ))}
 
             {todoCount === 0 && (
-              <div className="mindease-card py-8 text-center">
-                <p className="text-muted-foreground">Nenhuma tarefa pendente</p>
+              <div className={styles.emptyStateCard}>
+                <p className={styles.emptyStateText}>Nenhuma tarefa pendente</p>
               </div>
             )}
           </div>

@@ -15,6 +15,7 @@ import type { Task } from "@/presentation/types/tasks";
 import { cn } from "@/presentation/lib/utils";
 import { useAddTaskDialogForm } from "@/presentation/hooks/useAddTaskDialogForm";
 import { useAddTaskDialogViewModel } from "@/presentation/hooks/useAddTaskDialogViewModel";
+import { addTaskDialogClasses as styles } from "@/presentation/components/tasks/AddTaskDialog.styles";
 
 interface AddTaskDialogProps {
   open: boolean;
@@ -44,25 +45,25 @@ export function AddTaskDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className={styles.dialogContent}>
         <DialogHeader>
-          <DialogTitle className="font-display">Nova Tarefa</DialogTitle>
+          <DialogTitle className={styles.dialogTitle}>Nova Tarefa</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={submit} className="space-y-5">
-          <div className="space-y-2">
+        <form onSubmit={submit} className={styles.form}>
+          <div className={styles.field}>
             <Label htmlFor="title">Titulo</Label>
             <Input
               id="title"
               value={title}
               onChange={(event) => setTitle(event.target.value)}
               placeholder="O que voce precisa fazer?"
-              className="text-base"
+              className={styles.titleInput}
               autoFocus
             />
           </div>
 
-          <div className="space-y-2">
+          <div className={styles.field}>
             <Label htmlFor="description">Descricao (opcional)</Label>
             <Textarea
               id="description"
@@ -73,29 +74,29 @@ export function AddTaskDialog({
             />
           </div>
 
-          <div className="space-y-2">
+          <div className={styles.field}>
             <Label>Prioridade</Label>
-            <div className="flex gap-2">
+            <div className={styles.priorityGroup}>
               {priorityOptions.map((option) => (
                 <button
                   key={option.value}
                   type="button"
                   onClick={() => setPriority(option.value)}
                   className={cn(
-                    "flex flex-1 items-center justify-center gap-2 rounded-lg border px-3 py-2 transition-all",
+                    styles.priorityOptionBase,
                     isPrioritySelected(option.value)
-                      ? "border-primary bg-primary/5"
-                      : "border-border hover:border-muted-foreground",
+                      ? styles.priorityOptionSelected
+                      : styles.priorityOptionDefault,
                   )}
                 >
-                  <div className={cn("h-2.5 w-2.5 rounded-full", option.color)} />
-                  <span className="text-sm font-medium">{option.label}</span>
+                  <div className={cn(styles.priorityDot, option.color)} />
+                  <span className={styles.priorityLabel}>{option.label}</span>
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="space-y-2">
+          <div className={styles.field}>
             <Label htmlFor="time">Tempo estimado (minutos)</Label>
             <Input
               id="time"
@@ -109,16 +110,16 @@ export function AddTaskDialog({
             />
           </div>
 
-          <div className="flex gap-3 pt-2">
+          <div className={styles.footer}>
             <Button
               type="button"
               variant="outline"
-              className="flex-1"
+              className={styles.footerButton}
               onClick={closeDialog}
             >
               Cancelar
             </Button>
-            <Button type="submit" className="flex-1">
+            <Button type="submit" className={styles.footerButton}>
               Criar Tarefa
             </Button>
           </div>

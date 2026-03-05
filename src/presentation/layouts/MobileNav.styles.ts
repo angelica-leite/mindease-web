@@ -1,0 +1,26 @@
+export const mobileNavClasses = {
+  header:
+    "fixed left-0 right-0 top-0 z-50 border-b border-sidebar-border bg-sidebar md:hidden",
+  headerContent: "flex items-center justify-between px-4 py-3",
+  brandLink: "flex items-center gap-2",
+  brandIconWrapper:
+    "flex h-8 w-8 items-center justify-center rounded-lg bg-primary",
+  brandIcon: "h-5 w-5 text-primary-foreground",
+  brandText: "font-display text-lg font-semibold text-sidebar-foreground",
+  menuButton: "text-sidebar-foreground",
+  menuIcon: "h-6 w-6",
+  sheetContent: "w-72 border-sidebar-border bg-sidebar p-0",
+  sheetHeader: "border-b border-sidebar-border p-4",
+  sheetTitle: "flex items-center gap-2 text-sidebar-foreground",
+  navContainer: "flex h-[calc(100%-65px)] flex-col p-4",
+  nav: "flex-1 space-y-1",
+  navItemBase:
+    "flex items-center gap-3 rounded-xl px-4 py-3 text-sidebar-foreground transition-all",
+  navItemActive: "bg-sidebar-primary text-sidebar-primary-foreground",
+  navItemDefault: "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+  navItemIcon: "h-5 w-5",
+  navItemLabel: "font-medium",
+  footer: "border-t border-sidebar-border pt-4",
+  footerText: "text-center text-xs text-muted-foreground",
+  srOnly: "sr-only",
+} as const;

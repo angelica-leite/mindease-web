@@ -4,25 +4,24 @@ import React from "react";
 import Link from "next/link";
 import { Brain } from "lucide-react";
 
-import { cn } from "@/presentation/lib/utils";
 import { useNavigation } from "@/presentation/hooks/useNavigation";
+import { cn } from "@/presentation/lib/utils";
+import { sidebarClasses as styles } from "@/presentation/layouts/Sidebar.styles";
 
 export function Sidebar() {
   const { items } = useNavigation();
 
   return (
-    <aside className="fixed left-0 top-0 z-40 hidden h-screen w-64 border-r border-sidebar-border bg-sidebar md:block">
-      <div className="flex h-full flex-col px-4 py-6">
-        <Link href="/dashboard" className="mb-8 flex items-center gap-3 px-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sidebar-primary">
-            <Brain className="h-6 w-6 text-primary-foreground" />
+    <aside className={styles.root}>
+      <div className={styles.content}>
+        <Link href="/dashboard" className={styles.brandLink}>
+          <div className={styles.brandIconWrapper}>
+            <Brain className={styles.brandIcon} />
           </div>
-          <span className="font-display text-xl font-semibold text-sidebar-foreground">
-            MindEase
-          </span>
+          <span className={styles.brandText}>MindEase</span>
         </Link>
 
-        <nav className="flex-1 space-y-1">
+        <nav className={styles.nav}>
           {items.map((item) => {
             const Icon = item.icon;
 
@@ -31,23 +30,19 @@ export function Sidebar() {
                 key={item.path}
                 href={item.path}
                 className={cn(
-                  "flex items-center gap-3 rounded-xl px-4 py-3 text-sidebar-foreground transition-all",
-                  item.isActive
-                    ? "bg-sidebar-primary text-sidebar-primary-foreground"
-                    : "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                  styles.navItemBase,
+                  item.isActive ? styles.navItemActive : styles.navItemDefault,
                 )}
               >
-                <Icon className="h-5 w-5" />
-                <span className="font-medium">{item.label}</span>
+                <Icon className={styles.navItemIcon} />
+                <span className={styles.navItemLabel}>{item.label}</span>
               </Link>
             );
           })}
         </nav>
 
-        <div className="border-t border-sidebar-border pt-4">
-          <p className="text-center text-xs text-muted-foreground">
-            FIAP Inclusive © 2025
-          </p>
+        <div className={styles.footer}>
+          <p className={styles.footerText}>FIAP Inclusive (c) 2025</p>
         </div>
       </div>
     </aside>

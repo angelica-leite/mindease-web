@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 
 import type { Task } from "@/domain/entities/task";
 import { useQuickStatsViewModel } from "@/presentation/hooks/useQuickStatsViewModel";
+import { cn } from "@/presentation/lib/utils";
+import { quickStatsClasses as styles } from "@/presentation/components/dashboard/QuickStats.styles";
 
 interface QuickStatsProps {
   readonly tasks: Task[];
@@ -14,7 +16,7 @@ export function QuickStats({ tasks }: Readonly<QuickStatsProps>) {
   const stats = useQuickStatsViewModel({ tasks });
 
   return (
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+    <div className={styles.grid}>
       {stats.map((stat, index) => {
         const Icon = stat.icon;
 
@@ -24,20 +26,18 @@ export function QuickStats({ tasks }: Readonly<QuickStatsProps>) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="mindease-card"
+            className={styles.card}
           >
-            <div className="flex items-center gap-3">
-              <div
-                className={`flex h-12 w-12 items-center justify-center rounded-xl ${stat.bgColor}`}
-              >
-                <Icon className={`h-6 w-6 ${stat.color}`} />
+            <div className={styles.content}>
+              <div className={cn(styles.iconWrapperBase, stat.bgColor)}>
+                <Icon className={cn(styles.iconBase, stat.color)} />
               </div>
 
               <div>
-                <p className="text-2xl font-display font-semibold text-foreground">
+                <p className={styles.value}>
                   {stat.value}
                 </p>
-                <p className="text-sm text-muted-foreground">{stat.label}</p>
+                <p className={styles.label}>{stat.label}</p>
               </div>
             </div>
           </motion.div>
