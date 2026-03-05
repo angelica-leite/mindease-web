@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Type, Contrast, Maximize2, Sparkles, Eye } from "lucide-react";
 
 import { Label } from "@/presentation/components/ui/label";
