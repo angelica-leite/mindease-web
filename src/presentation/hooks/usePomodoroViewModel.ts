@@ -3,10 +3,7 @@
 import { useMemo } from "react";
 import { Coffee, Brain } from "lucide-react";
 
-import {
-  usePomodoro,
-  type PomodoroPhase,
-} from "@/presentation/hooks/usePomodoro";
+import { usePomodoro, type PomodoroPhase } from "@/presentation/hooks/usePomodoro";
 
 type PomodoroController = ReturnType<typeof usePomodoro>;
 
@@ -34,19 +31,11 @@ export function usePomodoroViewModel(controller?: PomodoroController) {
   const internalController = usePomodoro();
   const resolvedController = controller ?? internalController;
 
-  const {
-    phase,
-    progress,
-    completedCycles,
-    isRunning,
-    pause,
-    resume,
-    ...rest
-  } = resolvedController;
+  const { phase, progress, completedCycles, isRunning, pause, resume, ...rest } =
+    resolvedController;
 
   const phaseState = phaseConfig[phase];
-  const strokeDashoffset =
-    circleCircumference - (progress / 100) * circleCircumference;
+  const strokeDashoffset = circleCircumference - (progress / 100) * circleCircumference;
 
   const pauseOrResume = useMemo(() => (isRunning ? pause : resume), [isRunning, pause, resume]);
   const strokeColor = phase === "work" ? "hsl(var(--focus))" : "hsl(var(--success))";

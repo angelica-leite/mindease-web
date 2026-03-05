@@ -43,8 +43,9 @@ jest.mock("@/presentation/components/tasks/TaskCard", () => ({
   ),
 }));
 
-const useDashboardViewModelMock =
-  useDashboardViewModel as jest.MockedFunction<typeof useDashboardViewModel>;
+const useDashboardViewModelMock = useDashboardViewModel as jest.MockedFunction<
+  typeof useDashboardViewModel
+>;
 
 describe("DashboardClient", () => {
   it("renders sections, tasks and delegates task actions", async () => {

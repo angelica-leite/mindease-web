@@ -30,12 +30,8 @@ export function AccessibilityPanel() {
             <Type className={styles.iconPrimary} />
           </div>
           <div>
-            <h3 className={styles.sectionTitle}>
-              Tamanho da Fonte
-            </h3>
-            <p className={styles.sectionDescription}>
-              Ajuste o tamanho do texto
-            </p>
+            <h3 className={styles.sectionTitle}>Tamanho da Fonte</h3>
+            <p className={styles.sectionDescription}>Ajuste o tamanho do texto</p>
           </div>
         </div>
 
@@ -65,12 +61,8 @@ export function AccessibilityPanel() {
             <Maximize2 className={styles.iconFocus} />
           </div>
           <div>
-            <h3 className={styles.sectionTitle}>
-              Espacamento
-            </h3>
-            <p className={styles.sectionDescription}>
-              Controle o respiro visual entre elementos
-            </p>
+            <h3 className={styles.sectionTitle}>Espacamento</h3>
+            <p className={styles.sectionDescription}>Controle o respiro visual entre elementos</p>
           </div>
         </div>
 
@@ -100,9 +92,7 @@ export function AccessibilityPanel() {
           </div>
           <div>
             <h3 className={styles.sectionTitle}>Contraste</h3>
-            <p className={styles.sectionDescription}>
-              Aumente a visibilidade dos elementos
-            </p>
+            <p className={styles.sectionDescription}>Aumente a visibilidade dos elementos</p>
           </div>
         </div>
 
@@ -132,15 +122,10 @@ export function AccessibilityPanel() {
               <Sparkles className={styles.iconSuccess} />
             </div>
             <div>
-              <Label
-                htmlFor="reduced-motion"
-                className={styles.label}
-              >
+              <Label htmlFor="reduced-motion" className={styles.label}>
                 Reduzir Animacoes
               </Label>
-              <p className={styles.sectionDescription}>
-                Minimiza movimentos na tela
-              </p>
+              <p className={styles.sectionDescription}>Minimiza movimentos na tela</p>
             </div>
           </div>
 
@@ -160,9 +145,7 @@ export function AccessibilityPanel() {
               <Label htmlFor="simplified" className={styles.label}>
                 Visualizacao Simplificada
               </Label>
-              <p className={styles.sectionDescription}>
-                Remove elementos nao essenciais
-              </p>
+              <p className={styles.sectionDescription}>Remove elementos nao essenciais</p>
             </div>
           </div>
 

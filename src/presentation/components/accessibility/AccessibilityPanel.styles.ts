@@ -5,16 +5,11 @@ export const accessibilityPanelClasses = {
   sectionHeader: "mb-4 flex items-center gap-3",
   controlRow: "flex items-center justify-between",
   optionGroup: "flex gap-2",
-  iconBoxPrimary:
-    "flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10",
-  iconBoxFocus:
-    "flex h-10 w-10 items-center justify-center rounded-xl bg-focus/10",
-  iconBoxWarning:
-    "flex h-10 w-10 items-center justify-center rounded-xl bg-warning/10",
-  iconBoxSuccess:
-    "flex h-10 w-10 items-center justify-center rounded-xl bg-success/10",
-  iconBoxSecondary:
-    "flex h-10 w-10 items-center justify-center rounded-xl bg-secondary",
+  iconBoxPrimary: "flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10",
+  iconBoxFocus: "flex h-10 w-10 items-center justify-center rounded-xl bg-focus/10",
+  iconBoxWarning: "flex h-10 w-10 items-center justify-center rounded-xl bg-warning/10",
+  iconBoxSuccess: "flex h-10 w-10 items-center justify-center rounded-xl bg-success/10",
+  iconBoxSecondary: "flex h-10 w-10 items-center justify-center rounded-xl bg-secondary",
   iconPrimary: "h-5 w-5 text-primary",
   iconFocus: "h-5 w-5 text-focus",
   iconWarning: "h-5 w-5 text-warning",

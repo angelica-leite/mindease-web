@@ -39,10 +39,8 @@ export function useCognitiveAlertViewModel({
 
     return {
       icon: config.icon,
-      containerClassName:
-        `relative overflow-hidden rounded-2xl border border-border bg-gradient-to-r p-5 ${config.gradient}`,
-      iconContainerClassName:
-        `flex h-10 w-10 items-center justify-center rounded-xl bg-background/80 ${config.iconColor}`,
+      containerClassName: `relative overflow-hidden rounded-2xl border border-border bg-gradient-to-r p-5 ${config.gradient}`,
+      iconContainerClassName: `flex h-10 w-10 items-center justify-center rounded-xl bg-background/80 ${config.iconColor}`,
       showAction: Boolean(onAction && actionLabel),
     };
   }, [type, onAction, actionLabel]);

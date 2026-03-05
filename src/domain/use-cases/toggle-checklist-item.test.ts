@@ -35,12 +35,8 @@ describe("ToggleChecklistItem", () => {
     const result = await useCase.execute("task-1", "c1");
 
     const updatedTask = result.find((t) => t.id === "task-1");
-    expect(updatedTask?.checklist?.find((i) => i.id === "c1")?.completed).toBe(
-      true,
-    );
-    expect(updatedTask?.checklist?.find((i) => i.id === "c2")?.completed).toBe(
-      true,
-    );
+    expect(updatedTask?.checklist?.find((i) => i.id === "c1")?.completed).toBe(true);
+    expect(updatedTask?.checklist?.find((i) => i.id === "c2")?.completed).toBe(true);
     expect(repo.saveAll).toHaveBeenCalledWith(result);
   });
 });

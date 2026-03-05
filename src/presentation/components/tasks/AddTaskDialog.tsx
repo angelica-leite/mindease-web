@@ -24,11 +24,7 @@ interface AddTaskDialogProps {
   onAdd: (task: Omit<Task, "id" | "createdAt">) => void;
 }
 
-export function AddTaskDialog({
-  open,
-  onOpenChange,
-  onAdd,
-}: AddTaskDialogProps) {
+export function AddTaskDialog({ open, onOpenChange, onAdd }: AddTaskDialogProps) {
   const {
     title,
     setTitle,
@@ -41,17 +37,14 @@ export function AddTaskDialog({
     submit,
     closeDialog,
   } = useAddTaskDialogForm({ onAdd, onOpenChange });
-  const { priorityOptions, isPrioritySelected } =
-    useAddTaskDialogViewModel(priority);
+  const { priorityOptions, isPrioritySelected } = useAddTaskDialogViewModel(priority);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={styles.dialogContent}>
         <DialogHeader>
           <DialogTitle className={styles.dialogTitle}>Nova Tarefa</DialogTitle>
-          <DialogDescription>
-            Preencha os campos para criar uma nova tarefa.
-          </DialogDescription>
+          <DialogDescription>Preencha os campos para criar uma nova tarefa.</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={submit} className={styles.form}>

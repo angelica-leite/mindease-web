@@ -5,9 +5,7 @@ import type { usePomodoro } from "@/presentation/hooks/usePomodoro";
 
 type PomodoroController = ReturnType<typeof usePomodoro>;
 
-function makeController(
-  overrides: Partial<PomodoroController> = {},
-): PomodoroController {
+function makeController(overrides: Partial<PomodoroController> = {}): PomodoroController {
   return {
     phase: "work",
     timeLeft: 1200,
@@ -44,9 +42,7 @@ describe("usePomodoroViewModel", () => {
     const resume = jest.fn();
 
     const running = makeController({ isRunning: true, pause, resume });
-    const { result: runningResult } = renderHook(() =>
-      usePomodoroViewModel(running),
-    );
+    const { result: runningResult } = renderHook(() => usePomodoroViewModel(running));
     runningResult.current.pauseOrResume();
     expect(pause).toHaveBeenCalledTimes(1);
 
@@ -55,9 +51,7 @@ describe("usePomodoroViewModel", () => {
       pause: jest.fn(),
       resume,
     });
-    const { result: pausedResult } = renderHook(() =>
-      usePomodoroViewModel(paused),
-    );
+    const { result: pausedResult } = renderHook(() => usePomodoroViewModel(paused));
     pausedResult.current.pauseOrResume();
     expect(resume).toHaveBeenCalledTimes(1);
   });

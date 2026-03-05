@@ -9,14 +9,10 @@ interface UseQuickStatsViewModelParams {
   readonly tasks: Task[];
 }
 
-export function useQuickStatsViewModel({
-  tasks,
-}: UseQuickStatsViewModelParams) {
+export function useQuickStatsViewModel({ tasks }: UseQuickStatsViewModelParams) {
   return useMemo(() => {
     const completed = tasks.filter((task) => task.status === "done").length;
-    const inProgress = tasks.filter(
-      (task) => task.status === "in-progress",
-    ).length;
+    const inProgress = tasks.filter((task) => task.status === "in-progress").length;
     const total = tasks.length;
     const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
 

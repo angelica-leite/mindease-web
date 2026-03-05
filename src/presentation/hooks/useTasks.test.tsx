@@ -106,11 +106,7 @@ describe("useTasks", () => {
     const { result } = renderHook(() => useTasks());
     await waitFor(() => expect(result.current.tasks).toHaveLength(2));
 
-    expect(result.current.getTasksByStatus("todo").map((task) => task.id)).toEqual([
-      "1",
-    ]);
-    expect(result.current.getTasksByStatus("done").map((task) => task.id)).toEqual([
-      "2",
-    ]);
+    expect(result.current.getTasksByStatus("todo").map((task) => task.id)).toEqual(["1"]);
+    expect(result.current.getTasksByStatus("done").map((task) => task.id)).toEqual(["2"]);
   });
 });

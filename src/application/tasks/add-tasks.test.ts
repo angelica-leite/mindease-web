@@ -13,9 +13,7 @@ describe("AddTask", () => {
       }),
     };
 
-    const randomUuidSpy = jest
-      .spyOn(global.crypto, "randomUUID")
-      .mockReturnValue("uuid-123");
+    const randomUuidSpy = jest.spyOn(global.crypto, "randomUUID").mockReturnValue("uuid-123");
 
     const useCase = new AddTask(repo);
 

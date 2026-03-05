@@ -1,6 +1,5 @@
 export const pomodoroClientClasses = {
-  focusedWrapper:
-    "fixed inset-0 z-[60] flex items-center justify-center bg-background p-4",
+  focusedWrapper: "fixed inset-0 z-[60] flex items-center justify-center bg-background p-4",
   focusedCard: "mindease-card flex w-full max-w-3xl justify-center py-12",
   page: "space-y-8",
   header: "text-center",

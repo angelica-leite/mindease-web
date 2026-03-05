@@ -3,10 +3,7 @@
 import { useMemo } from "react";
 import { usePathname } from "next/navigation";
 
-import {
-  navigationItems,
-  isNavigationItemActive,
-} from "@/presentation/constants/navigation";
+import { navigationItems, isNavigationItemActive } from "@/presentation/constants/navigation";
 
 export function useNavigation() {
   const pathname = usePathname();

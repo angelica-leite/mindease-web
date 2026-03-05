@@ -21,9 +21,7 @@ describe("usePomodoro", () => {
   });
 
   it("starts work, pauses, resumes and resets", () => {
-    const { result } = renderHook(() =>
-      usePomodoro({ workMinutes: 10, shortBreakMinutes: 2 }),
-    );
+    const { result } = renderHook(() => usePomodoro({ workMinutes: 10, shortBreakMinutes: 2 }));
 
     act(() => {
       result.current.startWork();

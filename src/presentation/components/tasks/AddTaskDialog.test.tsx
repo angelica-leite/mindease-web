@@ -9,15 +9,10 @@ describe("AddTaskDialog", () => {
     const onAdd = jest.fn();
     const onOpenChange = jest.fn();
 
-    render(
-      <AddTaskDialog open onOpenChange={onOpenChange} onAdd={onAdd} />,
-    );
+    render(<AddTaskDialog open onOpenChange={onOpenChange} onAdd={onAdd} />);
 
     await user.type(screen.getByLabelText(/titulo/i), "  Criar testes  ");
-    await user.type(
-      screen.getByLabelText(/descricao/i),
-      "  Cobrir modulo de tarefas  ",
-    );
+    await user.type(screen.getByLabelText(/descricao/i), "  Cobrir modulo de tarefas  ");
     await user.click(screen.getByRole("button", { name: "Alta" }));
     await user.type(screen.getByLabelText(/tempo estimado/i), "35");
     await user.click(screen.getByRole("button", { name: /criar tarefa/i }));

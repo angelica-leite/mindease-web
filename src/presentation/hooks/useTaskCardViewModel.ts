@@ -59,9 +59,7 @@ export function useTaskCardViewModel({ task }: UseTaskCardViewModelParams) {
           : "text-primary hover:bg-primary/10",
       ),
       actionIcon: isDone ? Circle : CheckCircle2,
-      estimatedMinutesLabel: task.estimatedMinutes
-        ? `${task.estimatedMinutes} min`
-        : null,
+      estimatedMinutesLabel: task.estimatedMinutes ? `${task.estimatedMinutes} min` : null,
     };
   }, [task]);
 }

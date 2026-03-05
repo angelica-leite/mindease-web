@@ -28,9 +28,7 @@ export default function PomodoroClient() {
         className={styles.header}
       >
         <h1 className={styles.title}>Timer de Foco</h1>
-        <p className={styles.description}>
-          Use a técnica Pomodoro para manter o foco
-        </p>
+        <p className={styles.description}>Use a técnica Pomodoro para manter o foco</p>
       </motion.div>
 
       <motion.div

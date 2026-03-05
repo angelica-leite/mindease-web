@@ -12,9 +12,7 @@ export default function ProfileClient() {
   return (
     <div className={styles.page}>
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className={styles.title}>
-          Meu Perfil
-        </h1>
+        <h1 className={styles.title}>Meu Perfil</h1>
         <p className={styles.description}>Suas informacoes e progresso</p>
       </motion.div>
 
@@ -30,9 +28,7 @@ export default function ProfileClient() {
           </div>
 
           <div className={styles.profileInfo}>
-            <h2 className={styles.profileName}>
-              Usuario MindEase
-            </h2>
+            <h2 className={styles.profileName}>Usuario MindEase</h2>
 
             <div className={styles.infoRow}>
               <Mail className={styles.infoIcon} />
@@ -57,9 +53,7 @@ export default function ProfileClient() {
           <div className={styles.statIconSuccessWrapper}>
             <Award className={styles.statIconSuccess} />
           </div>
-          <p className={styles.statValue}>
-            {completedTasks}
-          </p>
+          <p className={styles.statValue}>{completedTasks}</p>
           <p className={styles.statLabel}>Tarefas Concluidas</p>
         </div>
 

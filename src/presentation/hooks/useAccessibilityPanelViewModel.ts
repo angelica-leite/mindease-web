@@ -28,15 +28,11 @@ export function useAccessibilityPanelViewModel() {
     fontSizes,
     spacings,
     contrastLevels,
-    setFontSize: (fontSize: (typeof fontSizes)[number]["value"]) =>
-      updateSettings({ fontSize }),
-    setSpacing: (spacing: (typeof spacings)[number]["value"]) =>
-      updateSettings({ spacing }),
+    setFontSize: (fontSize: (typeof fontSizes)[number]["value"]) => updateSettings({ fontSize }),
+    setSpacing: (spacing: (typeof spacings)[number]["value"]) => updateSettings({ spacing }),
     setContrast: (contrast: (typeof contrastLevels)[number]["value"]) =>
       updateSettings({ contrast }),
-    setReducedMotion: (reducedMotion: boolean) =>
-      updateSettings({ reducedMotion }),
-    setSimplifiedView: (simplifiedView: boolean) =>
-      updateSettings({ simplifiedView }),
+    setReducedMotion: (reducedMotion: boolean) => updateSettings({ reducedMotion }),
+    setSimplifiedView: (simplifiedView: boolean) => updateSettings({ simplifiedView }),
   };
 }

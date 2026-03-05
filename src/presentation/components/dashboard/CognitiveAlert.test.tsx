@@ -29,13 +29,7 @@ describe("CognitiveAlert", () => {
   });
 
   it("does not render action button without action config", () => {
-    render(
-      <CognitiveAlert
-        type="focus"
-        message="Mantenha o foco"
-        onDismiss={jest.fn()}
-      />,
-    );
+    render(<CognitiveAlert type="focus" message="Mantenha o foco" onDismiss={jest.fn()} />);
 
     expect(screen.queryByRole("button", { name: /foco/i })).not.toBeInTheDocument();
   });

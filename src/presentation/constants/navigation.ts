@@ -1,11 +1,4 @@
-import {
-  LayoutDashboard,
-  CheckSquare,
-  Timer,
-  Settings,
-  User,
-  type LucideIcon,
-} from "lucide-react";
+import { LayoutDashboard, CheckSquare, Timer, Settings, User, type LucideIcon } from "lucide-react";
 
 export interface NavigationItem {
   readonly path: string;
@@ -21,12 +14,6 @@ export const navigationItems: readonly NavigationItem[] = [
   { path: "/settings", icon: Settings, label: "Configurações" },
 ] as const;
 
-export function isNavigationItemActive(
-  pathname: string | null,
-  itemPath: string,
-) {
-  return (
-    pathname === itemPath ||
-    (itemPath !== "/dashboard" && pathname?.startsWith(itemPath))
-  );
+export function isNavigationItemActive(pathname: string | null, itemPath: string) {
+  return pathname === itemPath || (itemPath !== "/dashboard" && pathname?.startsWith(itemPath));
 }

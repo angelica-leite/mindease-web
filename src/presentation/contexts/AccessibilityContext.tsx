@@ -32,16 +32,12 @@ const defaultSettings: AccessibilitySettings = {
   simplifiedView: false,
 };
 
-const AccessibilityContext = createContext<
-  AccessibilityContextType | undefined
->(undefined);
+const AccessibilityContext = createContext<AccessibilityContextType | undefined>(undefined);
 
 export function useAccessibility() {
   const context = useContext(AccessibilityContext);
   if (!context) {
-    throw new Error(
-      "useAccessibility must be used within an AccessibilityProvider",
-    );
+    throw new Error("useAccessibility must be used within an AccessibilityProvider");
   }
   return context;
 }
@@ -66,12 +62,8 @@ interface AccessibilityProviderProps {
   children: ReactNode;
 }
 
-export function AccessibilityProvider({
-  children,
-}: AccessibilityProviderProps) {
-  const [settings, setSettings] = useState<AccessibilitySettings>(() =>
-    readStoredSettings(),
-  );
+export function AccessibilityProvider({ children }: AccessibilityProviderProps) {
+  const [settings, setSettings] = useState<AccessibilitySettings>(() => readStoredSettings());
 
   // Persist + aplica no DOM
   useEffect(() => {
@@ -98,10 +90,7 @@ export function AccessibilityProvider({
       comfortable: "1.5",
       spacious: "1.75",
     };
-    root.style.setProperty(
-      "--spacing-relaxed",
-      spacingValues[settings.spacing],
-    );
+    root.style.setProperty("--spacing-relaxed", spacingValues[settings.spacing]);
 
     // Classes
     root.classList.toggle("reduce-motion", settings.reducedMotion);
@@ -113,14 +102,7 @@ export function AccessibilityProvider({
     setSettings((prev) => ({ ...prev, ...newSettings }));
   };
 
-  const value = useMemo(
-    () => ({ settings, updateSettings }),
-    [settings],
-  );
+  const value = useMemo(() => ({ settings, updateSettings }), [settings]);
 
-  return (
-    <AccessibilityContext.Provider value={value}>
-      {children}
-    </AccessibilityContext.Provider>
-  );
+  return <AccessibilityContext.Provider value={value}>{children}</AccessibilityContext.Provider>;
 }

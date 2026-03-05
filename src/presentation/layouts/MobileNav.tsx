@@ -34,12 +34,7 @@ export function MobileNav() {
 
         <Sheet open={open} onOpenChange={onOpenChange}>
           <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className={styles.menuButton}
-              type="button"
-            >
+            <Button variant="ghost" size="icon" className={styles.menuButton} type="button">
               <Menu className={styles.menuIcon} />
               <span className={styles.srOnly}>Abrir menu</span>
             </Button>

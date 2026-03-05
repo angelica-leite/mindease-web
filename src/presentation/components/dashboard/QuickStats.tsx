@@ -34,9 +34,7 @@ export function QuickStats({ tasks }: Readonly<QuickStatsProps>) {
               </div>
 
               <div>
-                <p className={styles.value}>
-                  {stat.value}
-                </p>
+                <p className={styles.value}>{stat.value}</p>
                 <p className={styles.label}>{stat.label}</p>
               </div>
             </div>

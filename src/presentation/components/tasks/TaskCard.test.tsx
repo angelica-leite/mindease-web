@@ -26,11 +26,7 @@ describe("TaskCard", () => {
     const onStatusChange = jest.fn();
 
     render(
-      <TaskCard
-        task={baseTask}
-        onStatusChange={onStatusChange}
-        onChecklistToggle={jest.fn()}
-      />,
+      <TaskCard task={baseTask} onStatusChange={onStatusChange} onChecklistToggle={jest.fn()} />,
     );
 
     await user.click(screen.getByRole("button", { name: /iniciar/i }));
@@ -43,11 +39,7 @@ describe("TaskCard", () => {
     const onChecklistToggle = jest.fn();
 
     render(
-      <TaskCard
-        task={baseTask}
-        onStatusChange={jest.fn()}
-        onChecklistToggle={onChecklistToggle}
-      />,
+      <TaskCard task={baseTask} onStatusChange={jest.fn()} onChecklistToggle={onChecklistToggle} />,
     );
 
     expect(screen.getByText("+1 itens")).toBeInTheDocument();

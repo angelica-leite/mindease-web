@@ -21,10 +21,7 @@ const defaultSettings: PomodoroSettings = {
 type IntervalId = ReturnType<typeof setInterval>;
 
 export function usePomodoro(settings: Partial<PomodoroSettings> = {}) {
-  const config = useMemo(
-    () => ({ ...defaultSettings, ...settings }),
-    [settings],
-  );
+  const config = useMemo(() => ({ ...defaultSettings, ...settings }), [settings]);
 
   const [phase, setPhase] = useState<PomodoroPhase>("idle");
   const [timeLeft, setTimeLeft] = useState(() => config.workMinutes * 60);

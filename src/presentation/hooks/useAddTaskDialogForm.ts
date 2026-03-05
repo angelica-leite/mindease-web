@@ -11,10 +11,7 @@ interface UseAddTaskDialogFormParams {
 
 const defaultPriority: TaskPriority = "medium";
 
-export function useAddTaskDialogForm({
-  onAdd,
-  onOpenChange,
-}: UseAddTaskDialogFormParams) {
+export function useAddTaskDialogForm({ onAdd, onOpenChange }: UseAddTaskDialogFormParams) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState<TaskPriority>(defaultPriority);
@@ -38,9 +35,7 @@ export function useAddTaskDialogForm({
 
       const minutes = estimatedMinutes ? Number(estimatedMinutes) : undefined;
       const safeMinutes =
-        minutes && Number.isFinite(minutes) && minutes > 0
-          ? Math.trunc(minutes)
-          : undefined;
+        minutes && Number.isFinite(minutes) && minutes > 0 ? Math.trunc(minutes) : undefined;
 
       onAdd({
         title: safeTitle,
@@ -69,13 +64,6 @@ export function useAddTaskDialogForm({
       submit,
       closeDialog,
     }),
-    [
-      title,
-      description,
-      priority,
-      estimatedMinutes,
-      submit,
-      closeDialog,
-    ],
+    [title, description, priority, estimatedMinutes, submit, closeDialog],
   );
 }

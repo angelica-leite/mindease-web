@@ -69,9 +69,7 @@ export function PomodoroTimer({ controller }: PomodoroTimerProps) {
             <Icon className={styles.phaseIcon} />
           </div>
 
-          <span className={cn(styles.phaseLabel, phaseState.color)}>
-            {phaseState.label}
-          </span>
+          <span className={cn(styles.phaseLabel, phaseState.color)}>{phaseState.label}</span>
 
           <span className={styles.time}>{formattedTime}</span>
 
@@ -140,9 +138,7 @@ export function PomodoroTimer({ controller }: PomodoroTimerProps) {
         ))}
       </div>
 
-      <p className={styles.footerText}>
-        {cyclesUntilLongBreak} ciclos ate a pausa longa
-      </p>
+      <p className={styles.footerText}>{cyclesUntilLongBreak} ciclos ate a pausa longa</p>
     </div>
   );
 }

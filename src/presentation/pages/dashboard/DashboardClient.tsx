@@ -34,12 +34,8 @@ export default function DashboardClient() {
         className={styles.hero}
       >
         <div>
-          <h1 className={styles.title}>
-            {greeting}
-          </h1>
-          <p className={styles.subtitle}>
-            Vamos organizar suas tarefas com calma
-          </p>
+          <h1 className={styles.title}>{greeting}</h1>
+          <p className={styles.subtitle}>Vamos organizar suas tarefas com calma</p>
         </div>
 
         <Link href="/pomodoro">
@@ -80,13 +76,8 @@ export default function DashboardClient() {
       >
         <div>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>
-              Em Progresso
-            </h2>
-            <Link
-              href="/tasks"
-              className={styles.sectionLink}
-            >
+            <h2 className={styles.sectionTitle}>Em Progresso</h2>
+            <Link href="/tasks" className={styles.sectionLink}>
               Ver todas <ArrowRight className={styles.sectionLinkIcon} />
             </Link>
           </div>
@@ -97,17 +88,13 @@ export default function DashboardClient() {
                 key={task.id}
                 task={task}
                 onStatusChange={(status) => moveTask(task.id, status)}
-                onChecklistToggle={(itemId) =>
-                  toggleChecklistItem(task.id, itemId)
-                }
+                onChecklistToggle={(itemId) => toggleChecklistItem(task.id, itemId)}
               />
             ))}
 
             {inProgressCount === 0 && (
               <div className={styles.emptyStateCard}>
-                <p className={styles.emptyStateText}>
-                  Nenhuma tarefa em progresso
-                </p>
+                <p className={styles.emptyStateText}>Nenhuma tarefa em progresso</p>
                 <Link href="/tasks">
                   <Button variant="link" className={styles.emptyStateButton}>
                     Iniciar uma tarefa
@@ -120,13 +107,8 @@ export default function DashboardClient() {
 
         <div>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>
-              A Fazer
-            </h2>
-            <Link
-              href="/tasks"
-              className={styles.sectionLink}
-            >
+            <h2 className={styles.sectionTitle}>A Fazer</h2>
+            <Link href="/tasks" className={styles.sectionLink}>
               Ver todas <ArrowRight className={styles.sectionLinkIcon} />
             </Link>
           </div>
@@ -137,9 +119,7 @@ export default function DashboardClient() {
                 key={task.id}
                 task={task}
                 onStatusChange={(status) => moveTask(task.id, status)}
-                onChecklistToggle={(itemId) =>
-                  toggleChecklistItem(task.id, itemId)
-                }
+                onChecklistToggle={(itemId) => toggleChecklistItem(task.id, itemId)}
               />
             ))}
 

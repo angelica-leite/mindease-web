@@ -4,8 +4,7 @@ export const profileClientClasses = {
   description: "text-muted-foreground",
   profileCard: "mindease-card",
   profileCardContent: "flex items-center gap-6",
-  avatarWrapper:
-    "flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10",
+  avatarWrapper: "flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10",
   avatarIcon: "h-10 w-10 text-primary",
   profileInfo: "flex-1",
   profileName: "text-xl font-display font-semibold text-foreground",

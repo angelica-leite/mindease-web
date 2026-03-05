@@ -31,12 +31,11 @@ export function TaskColumn({
     showAddButton,
     addTaskHandler,
     isEmpty,
-  } =
-    useTaskColumnViewModel({
-      status,
-      taskCount: tasks.length,
-      onAddTask,
-    });
+  } = useTaskColumnViewModel({
+    status,
+    taskCount: tasks.length,
+    onAddTask,
+  });
 
   return (
     <div className={cn(classStyles.root, columnStyles.bg)}>
@@ -48,11 +47,7 @@ export function TaskColumn({
         </div>
 
         {showAddButton && (
-          <button
-            type="button"
-            onClick={addTaskHandler}
-            className={classStyles.addButton}
-          >
+          <button type="button" onClick={addTaskHandler} className={classStyles.addButton}>
             <Plus className={classStyles.addIcon} />
             Adicionar
           </button>

@@ -34,8 +34,7 @@ describe("useTasksPageViewModel", () => {
       addTask: jest.fn(),
       moveTask: jest.fn(),
       toggleChecklistItem: jest.fn(),
-      getTasksByStatus: (status) =>
-        tasksFixture.filter((task) => task.status === status),
+      getTasksByStatus: (status) => tasksFixture.filter((task) => task.status === status),
     });
   });
 

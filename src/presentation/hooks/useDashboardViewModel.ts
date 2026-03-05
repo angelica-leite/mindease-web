@@ -14,17 +14,11 @@ export function useDashboardViewModel() {
   const { tasks, moveTask, toggleChecklistItem, getTasksByStatus } = useTasks();
   const [showAlert, setShowAlert] = useState(true);
 
-  const inProgressTasks = useMemo(
-    () => getTasksByStatus("in-progress"),
-    [getTasksByStatus],
-  );
+  const inProgressTasks = useMemo(() => getTasksByStatus("in-progress"), [getTasksByStatus]);
   const todoTasks = useMemo(() => getTasksByStatus("todo"), [getTasksByStatus]);
 
   const greeting = useMemo(() => getGreetingByHour(new Date().getHours()), []);
-  const topInProgressTasks = useMemo(
-    () => inProgressTasks.slice(0, 3),
-    [inProgressTasks],
-  );
+  const topInProgressTasks = useMemo(() => inProgressTasks.slice(0, 3), [inProgressTasks]);
   const topTodoTasks = useMemo(() => todoTasks.slice(0, 3), [todoTasks]);
 
   return {

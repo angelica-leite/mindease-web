@@ -16,11 +16,7 @@ interface TaskCardProps {
   onChecklistToggle: (itemId: string) => void;
 }
 
-export function TaskCard({
-  task,
-  onStatusChange,
-  onChecklistToggle,
-}: Readonly<TaskCardProps>) {
+export function TaskCard({ task, onStatusChange, onChecklistToggle }: Readonly<TaskCardProps>) {
   const {
     action,
     hasChecklist,
@@ -50,16 +46,10 @@ export function TaskCard({
 
         <div className={styles.body}>
           <div className={styles.header}>
-            <h3 className={titleClassName}>
-              {task.title}
-            </h3>
+            <h3 className={titleClassName}>{task.title}</h3>
           </div>
 
-          {task.description && (
-            <p className={styles.description}>
-              {task.description}
-            </p>
-          )}
+          {task.description && <p className={styles.description}>{task.description}</p>}
 
           {hasChecklist && (
             <div className={styles.checklist}>
@@ -75,9 +65,7 @@ export function TaskCard({
                     htmlFor={item.id}
                     className={cn(
                       styles.checklistLabelBase,
-                      item.completed
-                        ? styles.checklistLabelDone
-                        : styles.checklistLabelPending,
+                      item.completed ? styles.checklistLabelDone : styles.checklistLabelPending,
                     )}
                   >
                     {item.text}
@@ -86,9 +74,7 @@ export function TaskCard({
               ))}
 
               {hiddenChecklistCount > 0 && (
-                <p className={styles.hiddenCount}>
-                  +{hiddenChecklistCount} itens
-                </p>
+                <p className={styles.hiddenCount}>+{hiddenChecklistCount} itens</p>
               )}
 
               {checklistProgress !== null && (

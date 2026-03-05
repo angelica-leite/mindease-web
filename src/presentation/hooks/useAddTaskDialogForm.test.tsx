@@ -8,9 +8,7 @@ describe("useAddTaskDialogForm", () => {
     const onAdd = jest.fn();
     const onOpenChange = jest.fn();
 
-    const { result } = renderHook(() =>
-      useAddTaskDialogForm({ onAdd, onOpenChange }),
-    );
+    const { result } = renderHook(() => useAddTaskDialogForm({ onAdd, onOpenChange }));
 
     act(() => {
       result.current.setTitle("   ");
@@ -33,9 +31,7 @@ describe("useAddTaskDialogForm", () => {
     const onAdd = jest.fn();
     const onOpenChange = jest.fn();
 
-    const { result } = renderHook(() =>
-      useAddTaskDialogForm({ onAdd, onOpenChange }),
-    );
+    const { result } = renderHook(() => useAddTaskDialogForm({ onAdd, onOpenChange }));
 
     act(() => {
       result.current.setTitle("  Revisar PR  ");
