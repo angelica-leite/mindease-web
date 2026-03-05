@@ -306,11 +306,6 @@
   outline-offset: 3px;
 }
 
-/* Modo foco (ajuste conforme seu layout) */
-.focus-mode .mindease-card {
-  box-shadow: none;
-}
-
 /* Visual simplificado */
 .simplified-view .mindease-card {
   box-shadow: none;

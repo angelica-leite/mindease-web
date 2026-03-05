@@ -3,7 +3,6 @@
 import React from "react";
 import { Sidebar } from "@/presentation/layouts/Sidebar";
 import { MobileNav } from "@/presentation/layouts/MobileNav";
-import { useAccessibility } from "@/presentation/contexts/AccessibilityContext";
 import { cn } from "@/presentation/lib/utils";
 
 export default function MainLayoutClient({
@@ -11,15 +10,8 @@ export default function MainLayoutClient({
 }: {
   readonly children: React.ReactNode;
 }) {
-  const { settings } = useAccessibility();
-
   return (
-    <div
-      className={cn(
-        "min-h-screen bg-background",
-        settings.focusMode && "focus-mode",
-      )}
-    >
+    <div className={cn("min-h-screen bg-background")}>
       {/* Mobile Navigation */}
       <MobileNav />
 

@@ -13,7 +13,6 @@ export interface AccessibilitySettings {
   fontSize: "small" | "medium" | "large" | "xlarge";
   contrast: "normal" | "high";
   spacing: "compact" | "comfortable" | "spacious";
-  focusMode: boolean;
   reducedMotion: boolean;
   simplifiedView: boolean;
 }
@@ -21,7 +20,6 @@ export interface AccessibilitySettings {
 interface AccessibilityContextType {
   settings: AccessibilitySettings;
   updateSettings: (newSettings: Partial<AccessibilitySettings>) => void;
-  toggleFocusMode: () => void;
 }
 
 const STORAGE_KEY = "mindease-accessibility";
@@ -30,7 +28,6 @@ const defaultSettings: AccessibilitySettings = {
   fontSize: "medium",
   contrast: "normal",
   spacing: "comfortable",
-  focusMode: false,
   reducedMotion: false,
   simplifiedView: false,
 };
@@ -109,7 +106,6 @@ export function AccessibilityProvider({
     // Classes
     root.classList.toggle("reduce-motion", settings.reducedMotion);
     root.classList.toggle("high-contrast", settings.contrast === "high");
-    root.classList.toggle("focus-mode", settings.focusMode);
     root.classList.toggle("simplified-view", settings.simplifiedView);
   }, [settings]);
 
@@ -117,12 +113,8 @@ export function AccessibilityProvider({
     setSettings((prev) => ({ ...prev, ...newSettings }));
   };
 
-  const toggleFocusMode = () => {
-    setSettings((prev) => ({ ...prev, focusMode: !prev.focusMode }));
-  };
-
   const value = useMemo(
-    () => ({ settings, updateSettings, toggleFocusMode }),
+    () => ({ settings, updateSettings }),
     [settings],
   );
 

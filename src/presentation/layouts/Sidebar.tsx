@@ -3,7 +3,6 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
 import {
   LayoutDashboard,
   CheckSquare,
@@ -11,10 +10,8 @@ import {
   Settings,
   User,
   Brain,
-  Focus,
 } from "lucide-react";
 
-import { useAccessibility } from "@/presentation/contexts/AccessibilityContext";
 import { cn } from "@/presentation/lib/utils";
 
 const navItems = [
@@ -27,7 +24,6 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { settings, toggleFocusMode } = useAccessibility();
 
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-sidebar border-r border-sidebar-border hidden md:block">
@@ -41,25 +37,6 @@ export function Sidebar() {
             MindEase
           </span>
         </Link>
-
-        {/* Focus Mode Toggle */}
-        <motion.button
-          type="button"
-          onClick={toggleFocusMode}
-          className={cn(
-            "mb-6 flex items-center gap-3 rounded-xl px-4 py-3 transition-all",
-            settings.focusMode
-              ? "bg-focus text-focus-foreground"
-              : "bg-sidebar-accent text-sidebar-accent-foreground hover:bg-sidebar-accent/80",
-          )}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          <Focus className="h-5 w-5" />
-          <span className="font-medium">
-            {settings.focusMode ? "Modo Foco Ativo" : "Ativar Modo Foco"}
-          </span>
-        </motion.button>
 
         {/* Navigation */}
         <nav className="flex-1 space-y-1">
