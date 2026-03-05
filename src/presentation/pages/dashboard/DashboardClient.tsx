@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { Sparkles, ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -9,25 +9,21 @@ import { QuickStats } from "@/presentation/components/dashboard/QuickStats";
 import { CognitiveAlert } from "@/presentation/components/dashboard/CognitiveAlert";
 import { TaskCard } from "@/presentation/components/tasks/TaskCard";
 import { Button } from "@/presentation/components/ui/button";
-
-import { useTasks } from "@/presentation/hooks/useTasks";
+import { useDashboardViewModel } from "@/presentation/hooks/useDashboardViewModel";
 
 export default function DashboardClient() {
-  const { tasks, moveTask, toggleChecklistItem, getTasksByStatus } = useTasks();
-  const [showAlert, setShowAlert] = useState(true);
-
-  const inProgressTasks = useMemo(
-    () => getTasksByStatus("in-progress"),
-    [getTasksByStatus],
-  );
-  const todoTasks = useMemo(() => getTasksByStatus("todo"), [getTasksByStatus]);
-
-  const greeting = useMemo(() => {
-    const hour = new Date().getHours();
-    if (hour < 12) return "Bom dia";
-    if (hour < 18) return "Boa tarde";
-    return "Boa noite";
-  }, []);
+  const {
+    tasks,
+    greeting,
+    showAlert,
+    topInProgressTasks,
+    topTodoTasks,
+    inProgressCount,
+    todoCount,
+    dismissAlert,
+    moveTask,
+    toggleChecklistItem,
+  } = useDashboardViewModel();
 
   return (
     <div className="space-y-8">
@@ -37,8 +33,8 @@ export default function DashboardClient() {
         className="flex items-end justify-between"
       >
         <div>
-          <h1 className="text-3xl font-display font-bold text-foreground mb-1">
-            {greeting} 👋
+          <h1 className="mb-1 text-3xl font-display font-bold text-foreground">
+            {greeting}
           </h1>
           <p className="text-muted-foreground">
             Vamos organizar suas tarefas com calma
@@ -47,7 +43,7 @@ export default function DashboardClient() {
 
         <Link href="/pomodoro">
           <Button className="mindease-button-primary">
-            <Sparkles className="h-4 w-4 mr-2" />
+            <Sparkles className="mr-2 h-4 w-4" />
             Iniciar Foco
           </Button>
         </Link>
@@ -61,8 +57,8 @@ export default function DashboardClient() {
         >
           <CognitiveAlert
             type="breathe"
-            message="Lembre-se: respire fundo. Você está fazendo um ótimo trabalho! 🌿"
-            onDismiss={() => setShowAlert(false)}
+            message="Lembre-se: respire fundo. Voce esta fazendo um otimo trabalho."
+            onDismiss={dismissAlert}
           />
         </motion.div>
       )}
@@ -79,24 +75,23 @@ export default function DashboardClient() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="grid md:grid-cols-2 gap-6"
+        className="grid gap-6 md:grid-cols-2"
       >
-        {/* Em Progresso */}
         <div>
-          <div className="flex items-center justify-between mb-4">
+          <div className="mb-4 flex items-center justify-between">
             <h2 className="font-display font-semibold text-foreground">
               Em Progresso
             </h2>
             <Link
               href="/tasks"
-              className="text-sm text-primary hover:underline flex items-center gap-1"
+              className="flex items-center gap-1 text-sm text-primary hover:underline"
             >
               Ver todas <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
 
           <div className="space-y-3">
-            {inProgressTasks.slice(0, 3).map((task) => (
+            {topInProgressTasks.map((task) => (
               <TaskCard
                 key={task.id}
                 task={task}
@@ -107,8 +102,8 @@ export default function DashboardClient() {
               />
             ))}
 
-            {inProgressTasks.length === 0 && (
-              <div className="mindease-card text-center py-8">
+            {inProgressCount === 0 && (
+              <div className="mindease-card py-8 text-center">
                 <p className="text-muted-foreground">
                   Nenhuma tarefa em progresso
                 </p>
@@ -122,22 +117,21 @@ export default function DashboardClient() {
           </div>
         </div>
 
-        {/* A Fazer */}
         <div>
-          <div className="flex items-center justify-between mb-4">
+          <div className="mb-4 flex items-center justify-between">
             <h2 className="font-display font-semibold text-foreground">
               A Fazer
             </h2>
             <Link
               href="/tasks"
-              className="text-sm text-primary hover:underline flex items-center gap-1"
+              className="flex items-center gap-1 text-sm text-primary hover:underline"
             >
               Ver todas <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
 
           <div className="space-y-3">
-            {todoTasks.slice(0, 3).map((task) => (
+            {topTodoTasks.map((task) => (
               <TaskCard
                 key={task.id}
                 task={task}
@@ -148,11 +142,9 @@ export default function DashboardClient() {
               />
             ))}
 
-            {todoTasks.length === 0 && (
-              <div className="mindease-card text-center py-8">
-                <p className="text-muted-foreground">
-                  Nenhuma tarefa pendente 🎉
-                </p>
+            {todoCount === 0 && (
+              <div className="mindease-card py-8 text-center">
+                <p className="text-muted-foreground">Nenhuma tarefa pendente</p>
               </div>
             )}
           </div>

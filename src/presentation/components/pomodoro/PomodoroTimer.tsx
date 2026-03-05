@@ -2,19 +2,10 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  Play,
-  Pause,
-  SkipForward,
-  RotateCcw,
-  Coffee,
-  Brain,
-} from "lucide-react";
+import { Play, Pause, SkipForward, RotateCcw } from "lucide-react";
 
-import {
-  usePomodoro,
-  type PomodoroPhase,
-} from "@/presentation/hooks/usePomodoro";
+import { usePomodoro } from "@/presentation/hooks/usePomodoro";
+import { usePomodoroViewModel } from "@/presentation/hooks/usePomodoroViewModel";
 import { Button } from "@/presentation/components/ui/button";
 import { cn } from "@/presentation/lib/utils";
 
@@ -24,50 +15,30 @@ interface PomodoroTimerProps {
   readonly controller?: PomodoroController;
 }
 
-const phaseConfig: Record<
-  PomodoroPhase,
-  {
-    label: string;
-    color: string;
-    icon: React.ComponentType<{ className?: string }>;
-  }
-> = {
-  idle: {
-    label: "Pronto para focar?",
-    color: "text-muted-foreground",
-    icon: Brain,
-  },
-  work: { label: "Tempo de Foco", color: "text-focus", icon: Brain },
-  shortBreak: { label: "Pausa Curta", color: "text-success", icon: Coffee },
-  longBreak: { label: "Pausa Longa", color: "text-primary", icon: Coffee },
-};
-
 export function PomodoroTimer({ controller }: PomodoroTimerProps) {
-  const internalController = usePomodoro();
   const {
-    phase,
+    phaseState,
     formattedTime,
-    isRunning,
     completedCycles,
-    progress,
+    isRunning,
     startWork,
-    pause,
-    resume,
     reset,
     skip,
-  } = controller ?? internalController;
-
-  const config = phaseConfig[phase];
-  const Icon = config.icon;
-
-  const circumference = 2 * Math.PI * 120;
-  const strokeDashoffset = circumference - (progress / 100) * circumference;
+    pauseOrResume,
+    circleCircumference,
+    strokeDashoffset,
+    strokeColor,
+    isIdle,
+    showCycleCounter,
+    cycleIndicators,
+    cyclesUntilLongBreak,
+  } = usePomodoroViewModel(controller);
+  const Icon = phaseState.icon;
 
   return (
     <div className="flex flex-col items-center">
-      {/* Timer Circle */}
       <div className="relative mb-8">
-        <svg className="w-72 h-72 -rotate-90" viewBox="0 0 260 260">
+        <svg className="h-72 w-72 -rotate-90" viewBox="0 0 260 260">
           <circle
             cx="130"
             cy="130"
@@ -82,49 +53,45 @@ export function PomodoroTimer({ controller }: PomodoroTimerProps) {
             cy="130"
             r="120"
             fill="none"
-            stroke={
-              phase === "work" ? "hsl(var(--focus))" : "hsl(var(--success))"
-            }
+            stroke={strokeColor}
             strokeWidth="8"
             strokeLinecap="round"
-            strokeDasharray={circumference}
-            initial={{ strokeDashoffset: circumference }}
+            strokeDasharray={circleCircumference}
+            initial={{ strokeDashoffset: circleCircumference }}
             animate={{ strokeDashoffset }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           />
         </svg>
 
-        {/* Center content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <div className={cn("mb-2", config.color)}>
+          <div className={cn("mb-2", phaseState.color)}>
             <Icon className="h-8 w-8" />
           </div>
 
-          <span className={cn("text-sm font-medium mb-1", config.color)}>
-            {config.label}
+          <span className={cn("mb-1 text-sm font-medium", phaseState.color)}>
+            {phaseState.label}
           </span>
 
-          <span className="text-5xl font-display font-bold text-foreground tabular-nums">
+          <span className="font-display tabular-nums text-5xl font-bold text-foreground">
             {formattedTime}
           </span>
 
-          {phase !== "idle" && (
-            <span className="text-sm text-muted-foreground mt-2">
+          {showCycleCounter && (
+            <span className="mt-2 text-sm text-muted-foreground">
               Ciclo {completedCycles + 1}
             </span>
           )}
         </div>
       </div>
 
-      {/* Controls */}
       <div className="flex items-center gap-4">
-        {phase === "idle" ? (
+        {isIdle ? (
           <Button
             size="lg"
             onClick={startWork}
             className="mindease-button-primary px-8"
           >
-            <Play className="h-5 w-5 mr-2" />
+            <Play className="mr-2 h-5 w-5" />
             Iniciar Foco
           </Button>
         ) : (
@@ -141,7 +108,7 @@ export function PomodoroTimer({ controller }: PomodoroTimerProps) {
 
             <Button
               size="lg"
-              onClick={isRunning ? pause : resume}
+              onClick={pauseOrResume}
               className={cn(
                 "h-14 w-14 rounded-2xl",
                 isRunning
@@ -153,7 +120,7 @@ export function PomodoroTimer({ controller }: PomodoroTimerProps) {
               {isRunning ? (
                 <Pause className="h-6 w-6" />
               ) : (
-                <Play className="h-6 w-6 ml-0.5" />
+                <Play className="ml-0.5 h-6 w-6" />
               )}
             </Button>
 
@@ -170,21 +137,20 @@ export function PomodoroTimer({ controller }: PomodoroTimerProps) {
         )}
       </div>
 
-      {/* Cycle indicators */}
-      <div className="flex gap-2 mt-8">
-        {Array.from({ length: 4 }).map((_, i) => (
+      <div className="mt-8 flex gap-2">
+        {cycleIndicators.map((indicator) => (
           <div
-            key={i}
+            key={indicator.index}
             className={cn(
               "h-2.5 w-2.5 rounded-full transition-colors",
-              i < completedCycles % 4 ? "bg-primary" : "bg-muted",
+              indicator.done ? "bg-primary" : "bg-muted",
             )}
           />
         ))}
       </div>
 
-      <p className="text-sm text-muted-foreground mt-3">
-        {4 - (completedCycles % 4)} ciclos até a pausa longa
+      <p className="mt-3 text-sm text-muted-foreground">
+        {cyclesUntilLongBreak} ciclos até a pausa longa
       </p>
     </div>
   );

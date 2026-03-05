@@ -1,61 +1,20 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { CheckCircle2, Clock, Target, Zap } from "lucide-react";
-import { Task } from "@/domain/entities/task";
+
+import type { Task } from "@/domain/entities/task";
+import { useQuickStatsViewModel } from "@/presentation/hooks/useQuickStatsViewModel";
 
 interface QuickStatsProps {
-  tasks: Task[];
+  readonly tasks: Task[];
 }
 
 export function QuickStats({ tasks }: Readonly<QuickStatsProps>) {
-  const { completed, inProgress, total, completionRate } = useMemo(() => {
-    const completed = tasks.filter((t) => t.status === "done").length;
-    const inProgress = tasks.filter((t) => t.status === "in-progress").length;
-    const total = tasks.length;
-    const completionRate =
-      total > 0 ? Math.round((completed / total) * 100) : 0;
-
-    return { completed, inProgress, total, completionRate };
-  }, [tasks]);
-
-  const stats = useMemo(
-    () => [
-      {
-        label: "Concluídas",
-        value: completed,
-        icon: CheckCircle2,
-        color: "text-success",
-        bgColor: "bg-success/10",
-      },
-      {
-        label: "Em Progresso",
-        value: inProgress,
-        icon: Clock,
-        color: "text-focus",
-        bgColor: "bg-focus/10",
-      },
-      {
-        label: "Total",
-        value: total,
-        icon: Target,
-        color: "text-primary",
-        bgColor: "bg-primary/10",
-      },
-      {
-        label: "Progresso",
-        value: `${completionRate}%`,
-        icon: Zap,
-        color: "text-warning",
-        bgColor: "bg-warning/10",
-      },
-    ],
-    [completed, inProgress, total, completionRate],
-  );
+  const stats = useQuickStatsViewModel({ tasks });
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
       {stats.map((stat, index) => {
         const Icon = stat.icon;
 

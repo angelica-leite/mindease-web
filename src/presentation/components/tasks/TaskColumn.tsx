@@ -6,6 +6,7 @@ import { Plus } from "lucide-react";
 import type { Task, TaskStatus } from "@/presentation/types/tasks";
 import { TaskCard } from "@/presentation/components/tasks/TaskCard";
 import { cn } from "@/presentation/lib/utils";
+import { useTaskColumnViewModel } from "@/presentation/hooks/useTaskColumnViewModel";
 
 interface TaskColumnProps {
   status: TaskStatus;
@@ -15,18 +16,6 @@ interface TaskColumnProps {
   onAddTask?: () => void;
 }
 
-const columnStyles: Record<TaskStatus, { bg: string; accent: string }> = {
-  todo: { bg: "bg-muted/30", accent: "bg-muted-foreground" },
-  "in-progress": { bg: "bg-focus/5", accent: "bg-focus" },
-  done: { bg: "bg-success/5", accent: "bg-success" },
-};
-
-const columnLabels: Record<TaskStatus, string> = {
-  todo: "A Fazer",
-  "in-progress": "Em Progresso",
-  done: "Concluido",
-};
-
 export function TaskColumn({
   status,
   tasks,
@@ -34,26 +23,34 @@ export function TaskColumn({
   onChecklistToggle,
   onAddTask,
 }: TaskColumnProps) {
-  const styles = columnStyles[status];
+  const {
+    styles,
+    label,
+    taskCountLabel,
+    showAddButton,
+    addTaskHandler,
+    isEmpty,
+  } =
+    useTaskColumnViewModel({
+      status,
+      taskCount: tasks.length,
+      onAddTask,
+    });
 
   return (
     <div className={cn("rounded-2xl p-4", styles.bg)}>
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className={cn("h-3 w-3 rounded-full", styles.accent)} />
-          <h2 className="font-display font-semibold text-foreground">
-            {columnLabels[status]}
-          </h2>
-          <span className="text-sm text-muted-foreground">
-            ({tasks.length})
-          </span>
+          <h2 className="font-display font-semibold text-foreground">{label}</h2>
+          <span className="text-sm text-muted-foreground">{taskCountLabel}</span>
         </div>
 
-        {status === "todo" && onAddTask && (
+        {showAddButton && (
           <button
             type="button"
-            onClick={onAddTask}
-            className="flex items-center gap-1 text-sm text-primary hover:text-primary/80 transition-colors"
+            onClick={addTaskHandler}
+            className="flex items-center gap-1 text-sm text-primary transition-colors hover:text-primary/80"
           >
             <Plus className="h-4 w-4" />
             Adicionar
@@ -73,7 +70,7 @@ export function TaskColumn({
           ))}
         </AnimatePresence>
 
-        {tasks.length === 0 && (
+        {isEmpty && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -86,4 +83,3 @@ export function TaskColumn({
     </div>
   );
 }
-

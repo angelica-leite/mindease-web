@@ -2,8 +2,10 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Coffee, Eye, Wind } from "lucide-react";
+import { X } from "lucide-react";
+
 import { Button } from "@/presentation/components/ui/button";
+import { useCognitiveAlertViewModel } from "@/presentation/hooks/useCognitiveAlertViewModel";
 
 interface CognitiveAlertProps {
   type: "break" | "focus" | "breathe";
@@ -13,24 +15,6 @@ interface CognitiveAlertProps {
   actionLabel?: string;
 }
 
-const alertConfig = {
-  break: {
-    icon: Coffee,
-    gradient: "from-accent to-warning/20",
-    iconColor: "text-warning",
-  },
-  focus: {
-    icon: Eye,
-    gradient: "from-focus/20 to-primary/10",
-    iconColor: "text-focus",
-  },
-  breathe: {
-    icon: Wind,
-    gradient: "from-success/20 to-primary/10",
-    iconColor: "text-success",
-  },
-} as const;
-
 export function CognitiveAlert({
   type,
   message,
@@ -38,8 +22,12 @@ export function CognitiveAlert({
   onAction,
   actionLabel,
 }: Readonly<CognitiveAlertProps>) {
-  const config = alertConfig[type];
-  const Icon = config.icon;
+  const {
+    icon: Icon,
+    containerClassName,
+    iconContainerClassName,
+    showAction,
+  } = useCognitiveAlertViewModel({ type, onAction, actionLabel });
 
   return (
     <AnimatePresence>
@@ -47,27 +35,18 @@ export function CognitiveAlert({
         initial={{ opacity: 0, y: -20, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: -20, scale: 0.95 }}
-        className={`relative overflow-hidden rounded-2xl bg-gradient-to-r ${config.gradient} p-5 border border-border`}
+        className={containerClassName}
       >
         <div className="flex items-start gap-4">
-          <div
-            className={`flex h-10 w-10 items-center justify-center rounded-xl bg-background/80 ${config.iconColor}`}
-          >
+          <div className={iconContainerClassName}>
             <Icon className="h-5 w-5" />
           </div>
 
           <div className="flex-1">
-            <p className="text-foreground font-medium leading-relaxed">
-              {message}
-            </p>
+            <p className="font-medium leading-relaxed text-foreground">{message}</p>
 
-            {onAction && actionLabel && (
-              <Button
-                onClick={onAction}
-                variant="secondary"
-                size="sm"
-                className="mt-3"
-              >
+            {showAction && onAction && actionLabel && (
+              <Button onClick={onAction} variant="secondary" size="sm" className="mt-3">
                 {actionLabel}
               </Button>
             )}
@@ -76,7 +55,7 @@ export function CognitiveAlert({
           <button
             type="button"
             onClick={onDismiss}
-            className="text-muted-foreground hover:text-foreground transition-colors"
+            className="text-muted-foreground transition-colors hover:text-foreground"
             aria-label="Fechar alerta"
           >
             <X className="h-5 w-5" />

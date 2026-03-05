@@ -1,35 +1,25 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 
 import { TaskColumn } from "@/presentation/components/tasks/TaskColumn";
 import { AddTaskDialog } from "@/presentation/components/tasks/AddTaskDialog";
-import { useTasks } from "@/presentation/hooks/useTasks";
-import type { TaskStatus } from "@/presentation/types/tasks";
+import { useTasksPageViewModel } from "@/presentation/hooks/useTasksPageViewModel";
 
 export default function TasksClient() {
-  const { addTask, moveTask, toggleChecklistItem, getTasksByStatus } =
-    useTasks();
-  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-
-  const columns = useMemo(
-    () =>
-      [
-        { status: "todo" },
-        { status: "in-progress" },
-        { status: "done" },
-      ] satisfies { status: TaskStatus }[],
-    [],
-  );
+  const {
+    columns,
+    isAddDialogOpen,
+    setIsAddDialogOpen,
+    addTask,
+    moveTask,
+    toggleChecklistItem,
+  } = useTasksPageViewModel();
 
   return (
     <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <h1 className="text-3xl font-display font-bold text-foreground mb-1">
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <h1 className="mb-1 text-3xl font-display font-bold text-foreground">
           Minhas Tarefas
         </h1>
         <p className="text-muted-foreground">
@@ -41,20 +31,16 @@ export default function TasksClient() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="grid md:grid-cols-3 gap-6"
+        className="grid gap-6 md:grid-cols-3"
       >
         {columns.map((column) => (
           <TaskColumn
             key={column.status}
             status={column.status}
-            tasks={getTasksByStatus(column.status)}
+            tasks={column.tasks}
             onStatusChange={moveTask}
             onChecklistToggle={toggleChecklistItem}
-            onAddTask={
-              column.status === "todo"
-                ? () => setIsAddDialogOpen(true)
-                : undefined
-            }
+            onAddTask={column.onAddTask}
           />
         ))}
       </motion.div>

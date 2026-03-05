@@ -1,17 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
-  CheckSquare,
-  Timer,
-  Settings,
-  User,
-  Brain,
-  Menu,
-} from "lucide-react";
+import { Brain, Menu } from "lucide-react";
 
 import { cn } from "@/presentation/lib/utils";
 import { Button } from "@/presentation/components/ui/button";
@@ -23,23 +14,16 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/presentation/components/ui/sheet";
-
-const navItems = [
-  { path: "/dashboard", icon: LayoutDashboard, label: "Painel" },
-  { path: "/tasks", icon: CheckSquare, label: "Tarefas" },
-  { path: "/pomodoro", icon: Timer, label: "Foco" },
-  { path: "/profile", icon: User, label: "Perfil" },
-  { path: "/settings", icon: Settings, label: "Configurações" },
-] as const;
+import { useNavigation } from "@/presentation/hooks/useNavigation";
+import { useMobileNavigation } from "@/presentation/hooks/useMobileNavigation";
 
 export function MobileNav() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  const { items } = useNavigation();
+  const { open, onOpenChange } = useMobileNavigation();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-sidebar border-b border-sidebar-border md:hidden">
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-sidebar-border bg-sidebar md:hidden">
       <div className="flex items-center justify-between px-4 py-3">
-        {/* Logo */}
         <Link href="/dashboard" className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
             <Brain className="h-5 w-5 text-primary-foreground" />
@@ -49,8 +33,7 @@ export function MobileNav() {
           </span>
         </Link>
 
-        {/* Hamburger Menu */}
-        <Sheet open={open} onOpenChange={setOpen}>
+        <Sheet open={open} onOpenChange={onOpenChange}>
           <SheetTrigger asChild>
             <Button
               variant="ghost"
@@ -65,9 +48,9 @@ export function MobileNav() {
 
           <SheetContent
             side="right"
-            className="w-72 bg-sidebar border-sidebar-border p-0"
+            className="w-72 border-sidebar-border bg-sidebar p-0"
           >
-            <SheetHeader className="p-4 border-b border-sidebar-border">
+            <SheetHeader className="border-b border-sidebar-border p-4">
               <SheetTitle className="flex items-center gap-2 text-sidebar-foreground">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
                   <Brain className="h-5 w-5 text-primary-foreground" />
@@ -76,15 +59,9 @@ export function MobileNav() {
               </SheetTitle>
             </SheetHeader>
 
-            <div className="flex flex-col h-[calc(100%-65px)] p-4">
-              {/* Navigation */}
+            <div className="flex h-[calc(100%-65px)] flex-col p-4">
               <nav className="flex-1 space-y-1">
-                {navItems.map((item) => {
-                  const isActive =
-                    pathname === item.path ||
-                    (item.path !== "/dashboard" &&
-                      pathname?.startsWith(item.path));
-
+                {items.map((item) => {
                   const Icon = item.icon;
 
                   return (
@@ -93,7 +70,7 @@ export function MobileNav() {
                         href={item.path}
                         className={cn(
                           "flex items-center gap-3 rounded-xl px-4 py-3 text-sidebar-foreground transition-all",
-                          isActive
+                          item.isActive
                             ? "bg-sidebar-primary text-sidebar-primary-foreground"
                             : "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                         )}
@@ -106,9 +83,8 @@ export function MobileNav() {
                 })}
               </nav>
 
-              {/* Footer */}
-              <div className="pt-4 border-t border-sidebar-border">
-                <p className="text-xs text-muted-foreground text-center">
+              <div className="border-t border-sidebar-border pt-4">
+                <p className="text-center text-xs text-muted-foreground">
                   FIAP Inclusive © 2025
                 </p>
               </div>
