@@ -4,14 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
-
 @theme {
-  
   --font-sans: "Inter", "system-ui", sans-serif;
   --font-display: "Outfit", "system-ui", sans-serif;
 
-  
   --color-background: hsl(180 20% 99%);
   --color-foreground: hsl(200 25% 20%);
 
@@ -49,18 +45,15 @@
   --color-input: hsl(200 20% 92%);
   --color-ring: hsl(168 50% 42%);
 
-  
   --radius-lg: 1rem;
   --radius-md: calc(1rem - 2px);
   --radius-sm: calc(1rem - 4px);
   --radius-2xl: 1rem;
   --radius-3xl: 1.5rem;
 
-  
   --spacing-18: 4.5rem;
   --spacing-88: 22rem;
 
-  
   @keyframes fade-in {
     from {
       opacity: 0;
@@ -95,7 +88,6 @@
   --animate-pulse-soft: pulse-soft 3s ease-in-out infinite;
 }
 
-
 @layer base {
   :root {
     --gradient-calm: linear-gradient(135deg, hsl(168 50% 42%) 0%, hsl(180 45% 50%) 100%);
@@ -105,7 +97,6 @@
     --base-font-size: 16px;
   }
 
-  
   html {
     font-size: var(--base-font-size);
   }
@@ -116,7 +107,6 @@
     --color-card: hsl(200 20% 11%);
     --color-primary: hsl(168 45% 50%);
     --color-border: hsl(200 15% 20%);
-    
   }
 
   * {
@@ -147,7 +137,6 @@
     }
   }
 }
-
 
 @layer components {
   .mindease-card {
@@ -273,8 +262,6 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-
-
 .reduce-motion *,
 .reduce-motion *::before,
 .reduce-motion *::after {
@@ -283,7 +270,6 @@
   transition-duration: 0.001ms !important;
   scroll-behavior: auto !important;
 }
-
 
 .high-contrast {
   filter: contrast(1.15) saturate(1.05);
@@ -294,8 +280,6 @@
   outline-offset: 3px;
 }
 
-
 .simplified-view .mindease-card {
   box-shadow: none;
 }
-
