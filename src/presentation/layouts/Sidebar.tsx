@@ -34,7 +34,7 @@ export function Sidebar() {
       <div className="flex h-full flex-col px-4 py-6">
         {/* Logo */}
         <Link href="/dashboard" className="mb-8 flex items-center gap-3 px-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sidebar-primary">
             <Brain className="h-6 w-6 text-primary-foreground" />
           </div>
           <span className="font-display text-xl font-semibold text-sidebar-foreground">
