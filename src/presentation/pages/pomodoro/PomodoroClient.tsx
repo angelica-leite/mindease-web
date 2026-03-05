@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Brain, Heart, Leaf } from "lucide-react";
 
+import { usePomodoro } from "@/presentation/hooks/usePomodoro";
 import { PomodoroTimer } from "@/presentation/components/pomodoro/PomodoroTimer";
 
 const tips = [
@@ -25,6 +26,18 @@ const tips = [
 ] as const;
 
 export default function PomodoroClient() {
+  const pomodoro = usePomodoro();
+
+  if (pomodoro.phase === "work" && pomodoro.isRunning) {
+    return (
+      <div className="fixed inset-0 z-[60] bg-background flex items-center justify-center p-4">
+        <div className="w-full max-w-3xl mindease-card py-12 flex justify-center">
+          <PomodoroTimer controller={pomodoro} />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
       <motion.div
@@ -46,7 +59,7 @@ export default function PomodoroClient() {
         transition={{ delay: 0.1 }}
         className="mindease-card py-12 flex justify-center"
       >
-        <PomodoroTimer />
+        <PomodoroTimer controller={pomodoro} />
       </motion.div>
 
       <motion.div

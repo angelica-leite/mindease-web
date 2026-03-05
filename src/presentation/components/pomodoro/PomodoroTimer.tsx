@@ -18,6 +18,12 @@ import {
 import { Button } from "@/presentation/components/ui/button";
 import { cn } from "@/presentation/lib/utils";
 
+type PomodoroController = ReturnType<typeof usePomodoro>;
+
+interface PomodoroTimerProps {
+  readonly controller?: PomodoroController;
+}
+
 const phaseConfig: Record<
   PomodoroPhase,
   {
@@ -36,7 +42,8 @@ const phaseConfig: Record<
   longBreak: { label: "Pausa Longa", color: "text-primary", icon: Coffee },
 };
 
-export function PomodoroTimer() {
+export function PomodoroTimer({ controller }: PomodoroTimerProps) {
+  const internalController = usePomodoro();
   const {
     phase,
     formattedTime,
@@ -48,7 +55,7 @@ export function PomodoroTimer() {
     resume,
     reset,
     skip,
-  } = usePomodoro();
+  } = controller ?? internalController;
 
   const config = phaseConfig[phase];
   const Icon = config.icon;
