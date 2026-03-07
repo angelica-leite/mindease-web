@@ -40,7 +40,7 @@ export function useTaskCardViewModel({ task }: UseTaskCardViewModelParams) {
       action,
       isDone,
       taskClassName: cn(
-        "mindease-card group cursor-pointer border-l-4",
+        "task-card mindease-card group cursor-pointer border-l-4",
         priorityColors[task.priority],
         isDone && "opacity-70",
       ),

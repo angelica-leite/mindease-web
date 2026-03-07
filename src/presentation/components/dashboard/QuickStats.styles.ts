@@ -1,5 +1,5 @@
 export const quickStatsClasses = {
-  grid: "grid grid-cols-2 gap-4 md:grid-cols-4",
+  grid: "quick-stats-grid grid grid-cols-2 gap-4 md:grid-cols-4",
   card: "mindease-card",
   content: "flex items-center gap-3",
   iconWrapperBase: "flex h-12 w-12 items-center justify-center rounded-xl",

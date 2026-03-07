@@ -31,6 +31,9 @@ describe("useTasksPageViewModel", () => {
   beforeEach(() => {
     useTasksMock.mockReturnValue({
       tasks: tasksFixture,
+      isLoading: false,
+      error: null,
+      reload: jest.fn(),
       addTask: jest.fn(),
       moveTask: jest.fn(),
       toggleChecklistItem: jest.fn(),

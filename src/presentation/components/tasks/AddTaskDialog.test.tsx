@@ -11,8 +11,8 @@ describe("AddTaskDialog", () => {
 
     render(<AddTaskDialog open onOpenChange={onOpenChange} onAdd={onAdd} />);
 
-    await user.type(screen.getByLabelText(/titulo/i), "  Criar testes  ");
-    await user.type(screen.getByLabelText(/descricao/i), "  Cobrir modulo de tarefas  ");
+    await user.type(screen.getByLabelText(/t.*tulo/i), "  Criar testes  ");
+    await user.type(screen.getByLabelText(/descri/i), "  Cobrir modulo de tarefas  ");
     await user.click(screen.getByRole("button", { name: "Alta" }));
     await user.type(screen.getByLabelText(/tempo estimado/i), "35");
     await user.click(screen.getByRole("button", { name: /criar tarefa/i }));

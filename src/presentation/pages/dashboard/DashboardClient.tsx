@@ -14,6 +14,9 @@ import { dashboardClientClasses as styles } from "@/presentation/pages/dashboard
 export default function DashboardClient() {
   const {
     tasks,
+    isLoading,
+    error,
+    reload,
     greeting,
     showAlert,
     topInProgressTasks,
@@ -64,7 +67,13 @@ export default function DashboardClient() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <QuickStats tasks={tasks} />
+        {isLoading ? (
+          <div className={styles.emptyStateCard}>
+            <p className={styles.emptyStateText}>Carregando estatisticas...</p>
+          </div>
+        ) : (
+          <QuickStats tasks={tasks} />
+        )}
       </motion.div>
 
       <motion.div
@@ -73,6 +82,20 @@ export default function DashboardClient() {
         transition={{ delay: 0.2 }}
         className={styles.columnsGrid}
       >
+        {error ? (
+          <div className={styles.emptyStateCard}>
+            <p className={styles.emptyStateText}>Erro ao carregar tarefas: {error}</p>
+            <Button
+              type="button"
+              variant="outline"
+              className={styles.emptyStateButton}
+              onClick={reload}
+            >
+              Tentar novamente
+            </Button>
+          </div>
+        ) : null}
+
         <div>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>Em Progresso</h2>
@@ -82,16 +105,17 @@ export default function DashboardClient() {
           </div>
 
           <div className={styles.cardsStack}>
-            {topInProgressTasks.map((task) => (
-              <TaskCard
-                key={task.id}
-                task={task}
-                onStatusChange={(status) => moveTask(task.id, status)}
-                onChecklistToggle={(itemId) => toggleChecklistItem(task.id, itemId)}
-              />
-            ))}
+            {!error &&
+              topInProgressTasks.map((task) => (
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  onStatusChange={(status) => moveTask(task.id, status)}
+                  onChecklistToggle={(itemId) => toggleChecklistItem(task.id, itemId)}
+                />
+              ))}
 
-            {inProgressCount === 0 && (
+            {!error && !isLoading && inProgressCount === 0 && (
               <div className={styles.emptyStateCard}>
                 <p className={styles.emptyStateText}>Nenhuma tarefa em progresso</p>
                 <Link href="/tasks">
@@ -99,6 +123,11 @@ export default function DashboardClient() {
                     Iniciar uma tarefa
                   </Button>
                 </Link>
+              </div>
+            )}
+            {!error && isLoading && (
+              <div className={styles.emptyStateCard}>
+                <p className={styles.emptyStateText}>Carregando tarefas em progresso...</p>
               </div>
             )}
           </div>
@@ -113,18 +142,24 @@ export default function DashboardClient() {
           </div>
 
           <div className={styles.cardsStack}>
-            {topTodoTasks.map((task) => (
-              <TaskCard
-                key={task.id}
-                task={task}
-                onStatusChange={(status) => moveTask(task.id, status)}
-                onChecklistToggle={(itemId) => toggleChecklistItem(task.id, itemId)}
-              />
-            ))}
+            {!error &&
+              topTodoTasks.map((task) => (
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  onStatusChange={(status) => moveTask(task.id, status)}
+                  onChecklistToggle={(itemId) => toggleChecklistItem(task.id, itemId)}
+                />
+              ))}
 
-            {todoCount === 0 && (
+            {!error && !isLoading && todoCount === 0 && (
               <div className={styles.emptyStateCard}>
                 <p className={styles.emptyStateText}>Nenhuma tarefa pendente</p>
+              </div>
+            )}
+            {!error && isLoading && (
+              <div className={styles.emptyStateCard}>
+                <p className={styles.emptyStateText}>Carregando tarefas pendentes...</p>
               </div>
             )}
           </div>
