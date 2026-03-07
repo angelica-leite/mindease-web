@@ -31,10 +31,7 @@ describe("useAccessibilityPanelViewModel", () => {
       "medium",
       "high",
     ]);
-    expect(result.current.detailLevels.map((item) => item.value)).toEqual([
-      "summary",
-      "detailed",
-    ]);
+    expect(result.current.detailLevels.map((item) => item.value)).toEqual(["summary", "detailed"]);
   });
 
   it("updates complexity and detail preferences", () => {
