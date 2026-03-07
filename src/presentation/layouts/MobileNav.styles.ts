@@ -2,7 +2,7 @@ export const mobileNavClasses = {
   header: "fixed left-0 right-0 top-0 z-50 border-b border-sidebar-border bg-sidebar md:hidden",
   headerContent: "flex items-center justify-between px-4 py-3",
   brandLink: "flex items-center gap-2",
-  brandIconWrapper: "flex h-8 w-8 items-center justify-center rounded-lg bg-primary",
+  brandIconWrapper: "flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary",
   brandIcon: "h-5 w-5 text-primary-foreground",
   brandText: "font-display text-lg font-semibold text-sidebar-foreground",
   menuButton: "text-sidebar-foreground",
