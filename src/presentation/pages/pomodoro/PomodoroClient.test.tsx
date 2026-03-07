@@ -53,7 +53,7 @@ describe("PomodoroClient", () => {
     render(<PomodoroClient />);
 
     expect(screen.getByText("PomodoroTimerMock")).toBeInTheDocument();
-    expect(screen.queryByText("Timer de Foco")).not.toBeInTheDocument();
+    expect(screen.queryByText("Timer de foco")).not.toBeInTheDocument();
   });
 
   it("renders default mode with tips", () => {
@@ -93,7 +93,7 @@ describe("PomodoroClient", () => {
 
     render(<PomodoroClient />);
 
-    expect(screen.getByText("Timer de Foco")).toBeInTheDocument();
+    expect(screen.getByText("Timer de foco")).toBeInTheDocument();
     expect(screen.getByText("Foco em uma coisa")).toBeInTheDocument();
     expect(screen.getByText("Pause sem culpa")).toBeInTheDocument();
     expect(screen.getByText("PomodoroTimerMock")).toBeInTheDocument();

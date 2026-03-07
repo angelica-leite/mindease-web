@@ -26,7 +26,7 @@ export default function PomodoroClient() {
         animate={{ opacity: 1, y: 0 }}
         className={styles.header}
       >
-        <h1 className={styles.title}>Timer de Foco</h1>
+        <h1 className={styles.title}>Timer de foco</h1>
         <p className={styles.description}>Use a técnica Pomodoro para manter o foco</p>
       </motion.div>
 

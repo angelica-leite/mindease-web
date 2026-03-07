@@ -154,7 +154,7 @@ export function AccessibilityPanel() {
             <Eye className={styles.iconPrimary} />
           </div>
           <div>
-            <h3 className={styles.sectionTitle}>Nivel de detalhe</h3>
+            <h3 className={styles.sectionTitle}>Nível de detalhe</h3>
             <p className={styles.sectionDescription}>
               Muda estrutura visual entre resumo e detalhado
             </p>
