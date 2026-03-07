@@ -19,7 +19,7 @@ export const accessibilityPanelClasses = {
   sectionDescription: "text-sm text-muted-foreground",
   optionButtonBase: "flex-1 rounded-xl py-3 font-medium transition-all",
   optionButtonDefault: "bg-muted text-muted-foreground hover:bg-muted/80",
-  optionButtonPrimarySelected: "bg-primary text-primary-foreground",
+  optionButtonPrimarySelected: "bg-sidebar-primary text-primary-foreground",
   optionButtonFocusSelected: "bg-focus text-focus-foreground",
   optionButtonWarningSelected: "bg-warning text-warning-foreground",
   label: "font-medium text-foreground",

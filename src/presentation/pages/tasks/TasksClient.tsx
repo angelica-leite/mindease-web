@@ -23,7 +23,7 @@ export default function TasksClient() {
   return (
     <div className={styles.page}>
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className={styles.title}>Minhas Tarefas</h1>
+        <h1 className={styles.title}>Minhas tarefas</h1>
         <p className={styles.description}>Organize suas tarefas em etapas simples</p>
       </motion.div>
 

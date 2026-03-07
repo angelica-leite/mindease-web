@@ -12,7 +12,7 @@ export default function ProfileClient() {
   return (
     <div className={styles.page}>
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className={styles.title}>Meu Perfil</h1>
+        <h1 className={styles.title}>Meu perfil</h1>
         <p className={styles.description}>Suas informações e progresso</p>
       </motion.div>
 
@@ -54,7 +54,7 @@ export default function ProfileClient() {
             <Award className={styles.statIconSuccess} />
           </div>
           <p className={styles.statValue}>{completedTasks}</p>
-          <p className={styles.statLabel}>Tarefas Concluídas</p>
+          <p className={styles.statLabel}>Tarefas concluídas</p>
         </div>
 
         <div className={styles.statCard}>
@@ -62,7 +62,7 @@ export default function ProfileClient() {
             <Award className={styles.statIconFocus} />
           </div>
           <p className={styles.statValue}>12</p>
-          <p className={styles.statLabel}>Sessões de Foco</p>
+          <p className={styles.statLabel}>Sessões de foco</p>
         </div>
 
         <div className={styles.statCard}>
@@ -70,7 +70,7 @@ export default function ProfileClient() {
             <Award className={styles.statIconPrimary} />
           </div>
           <p className={styles.statValue}>5h</p>
-          <p className={styles.statLabel}>Tempo de Foco</p>
+          <p className={styles.statLabel}>Tempo de foco</p>
         </div>
       </motion.div>
     </div>
