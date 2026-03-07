@@ -2,13 +2,18 @@ import { act, renderHook } from "@testing-library/react";
 
 import { useDashboardViewModel } from "@/presentation/hooks/useDashboardViewModel";
 import { useTasks } from "@/presentation/hooks/useTasks";
+import { useAccessibility } from "@/presentation/contexts/AccessibilityContext";
 import type { Task } from "@/domain/entities/task";
 
 jest.mock("@/presentation/hooks/useTasks", () => ({
   useTasks: jest.fn(),
 }));
+jest.mock("@/presentation/contexts/AccessibilityContext", () => ({
+  useAccessibility: jest.fn(),
+}));
 
 const useTasksMock = useTasks as jest.MockedFunction<typeof useTasks>;
+const useAccessibilityMock = useAccessibility as jest.MockedFunction<typeof useAccessibility>;
 
 const tasks: Task[] = [
   {
@@ -43,8 +48,24 @@ const tasks: Task[] = [
 
 describe("useDashboardViewModel", () => {
   beforeEach(() => {
+    useAccessibilityMock.mockReturnValue({
+      settings: {
+        fontSize: "medium",
+        contrast: "normal",
+        spacing: "comfortable",
+        complexityLevel: "medium",
+        detailLevel: "detailed",
+        reducedMotion: false,
+        simplifiedView: false,
+      },
+      updateSettings: jest.fn(),
+    });
+
     useTasksMock.mockReturnValue({
       tasks,
+      isLoading: false,
+      error: null,
+      reload: jest.fn(),
       addTask: jest.fn(),
       moveTask: jest.fn(),
       toggleChecklistItem: jest.fn(),
@@ -77,6 +98,9 @@ describe("useDashboardViewModel", () => {
 
     useTasksMock.mockReturnValue({
       tasks,
+      isLoading: false,
+      error: null,
+      reload: jest.fn(),
       addTask: jest.fn(),
       moveTask,
       toggleChecklistItem,
@@ -90,5 +114,25 @@ describe("useDashboardViewModel", () => {
 
     expect(moveTask).toHaveBeenCalledWith("1", "done");
     expect(toggleChecklistItem).toHaveBeenCalledWith("1", "item-1");
+  });
+
+  it("uses complexity level to control visible task count", () => {
+    useAccessibilityMock.mockReturnValue({
+      settings: {
+        fontSize: "medium",
+        contrast: "normal",
+        spacing: "comfortable",
+        complexityLevel: "low",
+        detailLevel: "detailed",
+        reducedMotion: false,
+        simplifiedView: false,
+      },
+      updateSettings: jest.fn(),
+    });
+
+    const { result } = renderHook(() => useDashboardViewModel());
+
+    expect(result.current.topInProgressTasks).toHaveLength(1);
+    expect(result.current.topTodoTasks).toHaveLength(1);
   });
 });

@@ -56,6 +56,9 @@ describe("DashboardClient", () => {
 
     useDashboardViewModelMock.mockReturnValue({
       tasks: [],
+      isLoading: false,
+      error: null,
+      reload: jest.fn(),
       greeting: "Bom dia",
       showAlert: true,
       topInProgressTasks: [
@@ -102,6 +105,9 @@ describe("DashboardClient", () => {
   it("renders empty states when there are no tasks", () => {
     useDashboardViewModelMock.mockReturnValue({
       tasks: [],
+      isLoading: false,
+      error: null,
+      reload: jest.fn(),
       greeting: "Boa tarde",
       showAlert: false,
       topInProgressTasks: [],
@@ -117,5 +123,56 @@ describe("DashboardClient", () => {
 
     expect(screen.getByText("Nenhuma tarefa em progresso")).toBeInTheDocument();
     expect(screen.getByText("Nenhuma tarefa pendente")).toBeInTheDocument();
+  });
+
+  it("renders loading states", () => {
+    useDashboardViewModelMock.mockReturnValue({
+      tasks: [],
+      isLoading: true,
+      error: null,
+      reload: jest.fn(),
+      greeting: "Boa tarde",
+      showAlert: false,
+      topInProgressTasks: [],
+      topTodoTasks: [],
+      inProgressCount: 0,
+      todoCount: 0,
+      dismissAlert: jest.fn(),
+      moveTask: jest.fn(),
+      toggleChecklistItem: jest.fn(),
+    });
+
+    render(<DashboardClient />);
+
+    expect(screen.getByText("Carregando estatisticas...")).toBeInTheDocument();
+    expect(screen.getByText("Carregando tarefas em progresso...")).toBeInTheDocument();
+    expect(screen.getByText("Carregando tarefas pendentes...")).toBeInTheDocument();
+  });
+
+  it("renders error state and retries", async () => {
+    const user = userEvent.setup();
+    const reload = jest.fn();
+
+    useDashboardViewModelMock.mockReturnValue({
+      tasks: [],
+      isLoading: false,
+      error: "falha de rede",
+      reload,
+      greeting: "Boa tarde",
+      showAlert: false,
+      topInProgressTasks: [],
+      topTodoTasks: [],
+      inProgressCount: 0,
+      todoCount: 0,
+      dismissAlert: jest.fn(),
+      moveTask: jest.fn(),
+      toggleChecklistItem: jest.fn(),
+    });
+
+    render(<DashboardClient />);
+
+    expect(screen.getByText("Erro ao carregar tarefas: falha de rede")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Tentar novamente" }));
+    expect(reload).toHaveBeenCalledTimes(1);
   });
 });

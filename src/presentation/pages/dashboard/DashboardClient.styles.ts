@@ -5,7 +5,7 @@ export const dashboardClientClasses = {
   subtitle: "text-muted-foreground",
   focusButton: "mindease-button-primary",
   focusButtonIcon: "mr-2 h-4 w-4",
-  columnsGrid: "grid gap-6 md:grid-cols-2",
+  columnsGrid: "dashboard-columns grid gap-6 md:grid-cols-2",
   sectionHeader: "mb-4 flex items-center justify-between",
   sectionTitle: "font-display font-semibold text-foreground",
   sectionLink: "flex items-center gap-1 text-sm text-primary hover:underline",

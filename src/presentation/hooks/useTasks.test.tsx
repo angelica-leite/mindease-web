@@ -43,9 +43,13 @@ describe("useTasks", () => {
 
     const { result } = renderHook(() => useTasks());
 
+    expect(result.current.isLoading).toBe(true);
+    expect(result.current.error).toBeNull();
+
     await waitFor(() => {
       expect(result.current.tasks).toEqual(tasksFixture);
     });
+    expect(result.current.isLoading).toBe(false);
     expect(uc.list.execute).toHaveBeenCalledTimes(1);
   });
 
@@ -108,5 +112,34 @@ describe("useTasks", () => {
 
     expect(result.current.getTasksByStatus("todo").map((task) => task.id)).toEqual(["1"]);
     expect(result.current.getTasksByStatus("done").map((task) => task.id)).toEqual(["2"]);
+  });
+
+  it("stores loading error and retries with reload", async () => {
+    const listExecute = jest
+      .fn()
+      .mockRejectedValueOnce(new Error("falha inicial"))
+      .mockResolvedValueOnce(tasksFixture);
+
+    const uc = {
+      list: { execute: listExecute },
+      add: { execute: jest.fn() },
+      move: { execute: jest.fn() },
+      toggleChecklist: { execute: jest.fn() },
+    };
+    makeTasksMock.mockReturnValue(uc as unknown as ReturnType<typeof makeTasks>);
+
+    const { result } = renderHook(() => useTasks());
+
+    await waitFor(() => {
+      expect(result.current.error).toBe("falha inicial");
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    await act(async () => {
+      await result.current.reload();
+    });
+
+    expect(result.current.error).toBeNull();
+    expect(result.current.tasks).toEqual(tasksFixture);
   });
 });

@@ -14,9 +14,13 @@ export function AccessibilityPanel() {
     fontSizes,
     spacings,
     contrastLevels,
+    complexityLevels,
+    detailLevels,
     setFontSize,
     setSpacing,
     setContrast,
+    setComplexityLevel,
+    setDetailLevel,
     setReducedMotion,
     setSimplifiedView,
   } = useAccessibilityPanelViewModel();
@@ -105,6 +109,68 @@ export function AccessibilityPanel() {
                 styles.optionButtonBase,
                 settings.contrast === level.value
                   ? styles.optionButtonWarningSelected
+                  : styles.optionButtonDefault,
+              )}
+            >
+              {level.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className={styles.card}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.iconBoxFocus}>
+            <Sparkles className={styles.iconFocus} />
+          </div>
+          <div>
+            <h3 className={styles.sectionTitle}>Complexidade</h3>
+            <p className={styles.sectionDescription}>Ajuste densidade de informação e fluxo</p>
+          </div>
+        </div>
+
+        <div className={styles.optionGroup}>
+          {complexityLevels.map((level) => (
+            <button
+              key={level.value}
+              type="button"
+              onClick={() => setComplexityLevel(level.value)}
+              className={cn(
+                styles.optionButtonBase,
+                settings.complexityLevel === level.value
+                  ? styles.optionButtonFocusSelected
+                  : styles.optionButtonDefault,
+              )}
+            >
+              {level.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className={styles.card}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.iconBoxPrimary}>
+            <Eye className={styles.iconPrimary} />
+          </div>
+          <div>
+            <h3 className={styles.sectionTitle}>Nivel de detalhe</h3>
+            <p className={styles.sectionDescription}>
+              Muda estrutura visual entre resumo e detalhado
+            </p>
+          </div>
+        </div>
+
+        <div className={styles.optionGroup}>
+          {detailLevels.map((level) => (
+            <button
+              key={level.value}
+              type="button"
+              onClick={() => setDetailLevel(level.value)}
+              className={cn(
+                styles.optionButtonBase,
+                settings.detailLevel === level.value
+                  ? styles.optionButtonPrimarySelected
                   : styles.optionButtonDefault,
               )}
             >

@@ -10,7 +10,8 @@ const taskColumns = [{ status: "todo" }, { status: "in-progress" }, { status: "d
 }[];
 
 export function useTasksPageViewModel() {
-  const { addTask, moveTask, toggleChecklistItem, getTasksByStatus } = useTasks();
+  const { addTask, moveTask, toggleChecklistItem, getTasksByStatus, isLoading, error, reload } =
+    useTasks();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   const columns = useMemo(
@@ -27,6 +28,9 @@ export function useTasksPageViewModel() {
     columns,
     isAddDialogOpen,
     setIsAddDialogOpen,
+    isLoading,
+    error,
+    reload,
     addTask,
     moveTask,
     toggleChecklistItem,

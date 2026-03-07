@@ -49,7 +49,7 @@ export function AddTaskDialog({ open, onOpenChange, onAdd }: AddTaskDialogProps)
 
         <form onSubmit={submit} className={styles.form}>
           <div className={styles.field}>
-            <Label htmlFor="title">Titulo</Label>
+            <Label htmlFor="title">Título</Label>
             <Input
               id="title"
               value={title}
@@ -61,7 +61,7 @@ export function AddTaskDialog({ open, onOpenChange, onAdd }: AddTaskDialogProps)
           </div>
 
           <div className={styles.field}>
-            <Label htmlFor="description">Descricao (opcional)</Label>
+            <Label htmlFor="description">Descrição (opcional)</Label>
             <Textarea
               id="description"
               value={description}

@@ -8,8 +8,17 @@ import { TaskColumn } from "@/presentation/components/tasks/TaskColumn";
 import { tasksClientClasses as styles } from "@/presentation/pages/tasks/TasksClient.styles";
 
 export default function TasksClient() {
-  const { columns, isAddDialogOpen, setIsAddDialogOpen, addTask, moveTask, toggleChecklistItem } =
-    useTasksPageViewModel();
+  const {
+    columns,
+    isAddDialogOpen,
+    setIsAddDialogOpen,
+    isLoading,
+    error,
+    reload,
+    addTask,
+    moveTask,
+    toggleChecklistItem,
+  } = useTasksPageViewModel();
 
   return (
     <div className={styles.page}>
@@ -24,16 +33,37 @@ export default function TasksClient() {
         transition={{ delay: 0.1 }}
         className={styles.columnsGrid}
       >
-        {columns.map((column) => (
-          <TaskColumn
-            key={column.status}
-            status={column.status}
-            tasks={column.tasks}
-            onStatusChange={moveTask}
-            onChecklistToggle={toggleChecklistItem}
-            onAddTask={column.onAddTask}
-          />
-        ))}
+        {error ? (
+          <div className="mindease-card md:col-span-3">
+            <p className="text-muted-foreground">Erro ao carregar tarefas: {error}</p>
+            <button
+              type="button"
+              className="mt-3 rounded-lg border px-4 py-2 text-sm font-medium"
+              onClick={reload}
+            >
+              Tentar novamente
+            </button>
+          </div>
+        ) : null}
+
+        {!error && isLoading ? (
+          <div className="mindease-card md:col-span-3">
+            <p className="text-muted-foreground">Carregando tarefas...</p>
+          </div>
+        ) : null}
+
+        {!error && !isLoading
+          ? columns.map((column) => (
+              <TaskColumn
+                key={column.status}
+                status={column.status}
+                tasks={column.tasks}
+                onStatusChange={moveTask}
+                onChecklistToggle={toggleChecklistItem}
+                onAddTask={column.onAddTask}
+              />
+            ))
+          : null}
       </motion.div>
 
       <AddTaskDialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen} onAdd={addTask} />

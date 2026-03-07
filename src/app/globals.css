@@ -283,3 +283,45 @@
 .simplified-view .mindease-card {
   box-shadow: none;
 }
+
+.complexity-low .quick-stats-grid {
+  grid-template-columns: 1fr;
+}
+
+.complexity-low .dashboard-columns {
+  grid-template-columns: 1fr;
+}
+
+.complexity-low .tasks-columns {
+  grid-template-columns: 1fr;
+}
+
+.complexity-high .dashboard-columns {
+  gap: 1rem;
+}
+
+.complexity-high .tasks-columns {
+  gap: 1rem;
+}
+
+.complexity-high .task-card {
+  padding: 1rem;
+}
+
+.complexity-low .task-card-checklist {
+  display: none;
+}
+
+.detail-summary .task-card-description,
+.detail-summary .task-card-checklist,
+.detail-summary .task-card-hidden-count,
+.detail-summary .task-card-progress,
+.detail-summary .task-card-estimate {
+  display: none;
+}
+
+.detail-summary .task-card-footer {
+  border-top: 0;
+  padding-top: 0;
+  justify-content: flex-end;
+}

@@ -6,6 +6,8 @@ export interface AccessibilitySettings {
   fontSize: "small" | "medium" | "large" | "xlarge";
   contrast: "normal" | "high";
   spacing: "compact" | "comfortable" | "spacious";
+  complexityLevel: "low" | "medium" | "high";
+  detailLevel: "summary" | "detailed";
   reducedMotion: boolean;
   simplifiedView: boolean;
 }
@@ -21,6 +23,8 @@ const defaultSettings: AccessibilitySettings = {
   fontSize: "medium",
   contrast: "normal",
   spacing: "comfortable",
+  complexityLevel: "medium",
+  detailLevel: "detailed",
   reducedMotion: false,
   simplifiedView: false,
 };
@@ -82,6 +86,11 @@ export function AccessibilityProvider({ children }: AccessibilityProviderProps) 
     root.classList.toggle("reduce-motion", settings.reducedMotion);
     root.classList.toggle("high-contrast", settings.contrast === "high");
     root.classList.toggle("simplified-view", settings.simplifiedView);
+    root.classList.toggle("complexity-low", settings.complexityLevel === "low");
+    root.classList.toggle("complexity-medium", settings.complexityLevel === "medium");
+    root.classList.toggle("complexity-high", settings.complexityLevel === "high");
+    root.classList.toggle("detail-summary", settings.detailLevel === "summary");
+    root.classList.toggle("detail-detailed", settings.detailLevel === "detailed");
   }, [settings]);
 
   const updateSettings = (newSettings: Partial<AccessibilitySettings>) => {
