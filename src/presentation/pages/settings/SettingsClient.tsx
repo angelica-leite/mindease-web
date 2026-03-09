@@ -20,7 +20,6 @@ export default function SettingsClient() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <h2 className={styles.sectionTitle}>Acessibilidade Cognitiva</h2>
         <AccessibilityPanel />
       </motion.div>
     </div>
