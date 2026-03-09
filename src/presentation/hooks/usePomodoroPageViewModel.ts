@@ -2,6 +2,8 @@
 
 import { Brain, Heart, Leaf } from "lucide-react";
 
+import { useAuth } from "@/presentation/hooks/useAuth";
+import { useFocusStats } from "@/presentation/hooks/useFocusStats";
 import { usePomodoro } from "@/presentation/hooks/usePomodoro";
 
 const pomodoroTips = [
@@ -23,7 +25,15 @@ const pomodoroTips = [
 ] as const;
 
 export function usePomodoroPageViewModel() {
-  const controller = usePomodoro();
+  const { profile } = useAuth();
+  const { addFocusSecond, registerCompletedSession } = useFocusStats(profile?.id);
+  const controller = usePomodoro(
+    {},
+    {
+      onWorkTick: addFocusSecond,
+      onWorkSessionCompleted: registerCompletedSession,
+    },
+  );
   const showFocusedMode = controller.phase === "work" && controller.isRunning;
 
   return {

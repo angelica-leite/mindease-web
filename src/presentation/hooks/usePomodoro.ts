@@ -11,6 +11,11 @@ interface PomodoroSettings {
   cyclesBeforeLongBreak: number;
 }
 
+interface PomodoroCallbacks {
+  onWorkTick?: () => void;
+  onWorkSessionCompleted?: () => void;
+}
+
 const defaultSettings: PomodoroSettings = {
   workMinutes: 25,
   shortBreakMinutes: 5,
@@ -20,8 +25,12 @@ const defaultSettings: PomodoroSettings = {
 
 type IntervalId = ReturnType<typeof setInterval>;
 
-export function usePomodoro(settings: Partial<PomodoroSettings> = {}) {
+export function usePomodoro(
+  settings: Partial<PomodoroSettings> = {},
+  callbacks: PomodoroCallbacks = {},
+) {
   const config = useMemo(() => ({ ...defaultSettings, ...settings }), [settings]);
+  const callbacksRef = useRef(callbacks);
 
   const [phase, setPhase] = useState<PomodoroPhase>("idle");
   const [timeLeft, setTimeLeft] = useState(() => config.workMinutes * 60);
@@ -29,6 +38,10 @@ export function usePomodoro(settings: Partial<PomodoroSettings> = {}) {
   const [completedCycles, setCompletedCycles] = useState(0);
 
   const intervalRef = useRef<IntervalId | null>(null);
+
+  useEffect(() => {
+    callbacksRef.current = callbacks;
+  }, [callbacks]);
 
   const getPhaseTime = useCallback(
     (p: PomodoroPhase) => {
@@ -85,6 +98,7 @@ export function usePomodoro(settings: Partial<PomodoroSettings> = {}) {
       if (currentPhase === "work") {
         setCompletedCycles((prevCycles) => {
           const newCycles = prevCycles + 1;
+          callbacksRef.current.onWorkSessionCompleted?.();
 
           if (newCycles % config.cyclesBeforeLongBreak === 0) {
             setTimeLeft(config.longBreakMinutes * 60);
@@ -128,12 +142,16 @@ export function usePomodoro(settings: Partial<PomodoroSettings> = {}) {
           return 0;
         }
 
+        if (phase === "work") {
+          callbacksRef.current.onWorkTick?.();
+        }
+
         return prev - 1;
       });
     }, 1000);
 
     return clearTimer;
-  }, [isRunning, phase, clearTimer, skip]);
+  }, [clearTimer, isRunning, phase, skip]);
 
   const formattedTime = useMemo(() => {
     const mins = Math.floor(timeLeft / 60);

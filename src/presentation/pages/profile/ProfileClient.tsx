@@ -7,7 +7,8 @@ import { useProfileViewModel } from "@/presentation/hooks/useProfileViewModel";
 import { profileClientClasses as styles } from "@/presentation/pages/profile/ProfileClient.styles";
 
 export default function ProfileClient() {
-  const { completedTasks, profile, memberSince } = useProfileViewModel();
+  const { completedTasks, profile, memberSince, completedFocusSessions, totalFocusTime } =
+    useProfileViewModel();
   const profileName = profile?.name;
   const profileEmail = profile?.email;
 
@@ -63,7 +64,7 @@ export default function ProfileClient() {
           <div className={styles.statIconFocusWrapper}>
             <Award className={styles.statIconFocus} />
           </div>
-          <p className={styles.statValue}>12</p>
+          <p className={styles.statValue}>{completedFocusSessions}</p>
           <p className={styles.statLabel}>Sessões de foco</p>
         </div>
 
@@ -71,7 +72,7 @@ export default function ProfileClient() {
           <div className={styles.statIconPrimaryWrapper}>
             <Award className={styles.statIconPrimary} />
           </div>
-          <p className={styles.statValue}>5h</p>
+          <p className={styles.statValue}>{totalFocusTime}</p>
           <p className={styles.statLabel}>Tempo de foco</p>
         </div>
       </motion.div>
