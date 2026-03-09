@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { Award, Calendar, Mail, User } from "lucide-react";
@@ -7,7 +7,9 @@ import { useProfileViewModel } from "@/presentation/hooks/useProfileViewModel";
 import { profileClientClasses as styles } from "@/presentation/pages/profile/ProfileClient.styles";
 
 export default function ProfileClient() {
-  const { completedTasks } = useProfileViewModel();
+  const { completedTasks, profile, memberSince } = useProfileViewModel();
+  const profileName = profile?.name;
+  const profileEmail = profile?.email;
 
   return (
     <div className={styles.page}>
@@ -28,16 +30,16 @@ export default function ProfileClient() {
           </div>
 
           <div className={styles.profileInfo}>
-            <h2 className={styles.profileName}>Usuário MindEase</h2>
+            <h2 className={styles.profileName}>{profileName}</h2>
 
             <div className={styles.infoRow}>
               <Mail className={styles.infoIcon} />
-              <span className={styles.infoText}>usuario@example.com</span>
+              <span className={styles.infoText}>{profileEmail}</span>
             </div>
 
             <div className={styles.infoRow}>
               <Calendar className={styles.infoIcon} />
-              <span className={styles.infoText}>Membro desde Janeiro 2026</span>
+              <span className={styles.infoText}>Membro desde {memberSince}</span>
             </div>
           </div>
         </div>

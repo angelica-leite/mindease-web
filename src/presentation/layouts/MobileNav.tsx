@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Brain, Menu } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Brain, LogOut, Menu } from "lucide-react";
 
 import { Button } from "@/presentation/components/ui/button";
 import {
@@ -14,12 +15,21 @@ import {
 } from "@/presentation/components/ui/sheet";
 import { useMobileNavigation } from "@/presentation/hooks/useMobileNavigation";
 import { useNavigation } from "@/presentation/hooks/useNavigation";
+import { useAuth } from "@/presentation/hooks/useAuth";
 import { cn } from "@/presentation/lib/utils";
 import { mobileNavClasses as styles } from "@/presentation/layouts/MobileNav.styles";
 
 export function MobileNav() {
+  const router = useRouter();
   const { items } = useNavigation();
   const { open, onOpenChange } = useMobileNavigation();
+  const { profile, logout } = useAuth();
+
+  function handleLogout() {
+    logout();
+    onOpenChange(false);
+    router.replace("/login");
+  }
 
   return (
     <header className={styles.header}>
@@ -72,6 +82,14 @@ export function MobileNav() {
               </nav>
 
               <div className={styles.footer}>
+                <div className={styles.userInfo}>
+                  <p className={styles.userName}>{profile?.name}</p>
+                  <p className={styles.userEmail}>{profile?.email}</p>
+                </div>
+                <button type="button" className={styles.logoutButton} onClick={handleLogout}>
+                  <LogOut />
+                  Sair da conta
+                </button>
                 <p className={styles.footerText}>FIAP Inclusive (c) 2025</p>
               </div>
             </div>
