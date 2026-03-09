@@ -7,10 +7,8 @@
   optionGroup: "flex gap-2",
   iconBoxPrimary: "icon-parent flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10",
   iconBoxFocus: "icon-parent flex h-10 w-10 items-center justify-center rounded-xl bg-focus/10",
-  iconBoxWarning:
-    "icon-parent flex h-10 w-10 items-center justify-center rounded-xl bg-warning/10",
-  iconBoxSuccess:
-    "icon-parent flex h-10 w-10 items-center justify-center rounded-xl bg-success/10",
+  iconBoxWarning: "icon-parent flex h-10 w-10 items-center justify-center rounded-xl bg-warning/10",
+  iconBoxSuccess: "icon-parent flex h-10 w-10 items-center justify-center rounded-xl bg-success/10",
   iconBoxSecondary:
     "icon-parent flex h-10 w-10 items-center justify-center rounded-xl bg-secondary",
   iconPrimary: "icon-nonessential h-5 w-5 text-primary",
