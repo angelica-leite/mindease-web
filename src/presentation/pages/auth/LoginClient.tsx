@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useState } from "react";
 import { Brain, LockKeyhole, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -11,7 +11,7 @@ import { Input } from "@/presentation/components/ui/input";
 import { useAuth } from "@/presentation/hooks/useAuth";
 import { authPageClasses as styles } from "@/presentation/pages/auth/AuthPage.styles";
 
-export default function LoginClient() {
+function LoginClientContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { login } = useAuth();
@@ -117,5 +117,13 @@ export default function LoginClient() {
         </div>
       </motion.section>
     </div>
+  );
+}
+
+export default function LoginClient() {
+  return (
+    <Suspense fallback={<div className={styles.page} />}>
+      <LoginClientContent />
+    </Suspense>
   );
 }
