@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { MotionConfig } from "framer-motion";
 
 export interface AccessibilitySettings {
   fontSize: "small" | "medium" | "large" | "xlarge";
@@ -99,5 +100,14 @@ export function AccessibilityProvider({ children }: AccessibilityProviderProps) 
 
   const value = useMemo(() => ({ settings, updateSettings }), [settings]);
 
-  return <AccessibilityContext.Provider value={value}>{children}</AccessibilityContext.Provider>;
+  return (
+    <AccessibilityContext.Provider value={value}>
+      <MotionConfig
+        reducedMotion={settings.reducedMotion ? "always" : "never"}
+        transition={settings.reducedMotion ? { duration: 0, delay: 0 } : undefined}
+      >
+        {children}
+      </MotionConfig>
+    </AccessibilityContext.Provider>
+  );
 }

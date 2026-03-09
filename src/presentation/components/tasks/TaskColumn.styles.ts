@@ -6,7 +6,7 @@ export const taskColumnClasses = {
   title: "font-display font-semibold text-foreground",
   count: "text-sm text-muted-foreground",
   addButton: "flex items-center gap-1 text-sm text-primary transition-colors hover:text-primary/80",
-  addIcon: "h-4 w-4",
+  addIcon: "icon-nonessential h-4 w-4",
   tasksStack: "space-y-3",
   emptyState: "py-8 text-center",
   emptyText: "text-sm text-muted-foreground",

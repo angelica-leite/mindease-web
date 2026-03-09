@@ -265,10 +265,15 @@
 .reduce-motion *,
 .reduce-motion *::before,
 .reduce-motion *::after {
-  animation-duration: 0.001ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: 0.001ms !important;
+  animation: none !important;
+  transition: none !important;
   scroll-behavior: auto !important;
+}
+
+.reduce-motion {
+  --animate-fade-in: none;
+  --animate-breathe: none;
+  --animate-pulse-soft: none;
 }
 
 .high-contrast {
@@ -282,6 +287,15 @@
 
 .simplified-view .mindease-card {
   box-shadow: none;
+}
+
+.simplified-view .quick-stats-grid {
+  display: none !important;
+}
+
+.simplified-view .icon-parent,
+.simplified-view .icon-nonessential {
+  display: none !important;
 }
 
 .complexity-low .quick-stats-grid {
@@ -324,4 +338,8 @@
   border-top: 0;
   padding-top: 0;
   justify-content: flex-end;
+}
+
+.detail-summary .detail-explanatory {
+  display: none;
 }
