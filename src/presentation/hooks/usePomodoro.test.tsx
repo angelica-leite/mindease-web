@@ -119,4 +119,44 @@ describe("usePomodoro", () => {
       expect(result.current.timeLeft).toBe(3);
     });
   });
+
+  it("emits work tracking callbacks", async () => {
+    const onWorkTick = jest.fn();
+    const onWorkSessionCompleted = jest.fn();
+
+    const { result } = renderHook(() =>
+      usePomodoro(
+        {
+          workMinutes: 0.05,
+          shortBreakMinutes: 0.05,
+        },
+        {
+          onWorkTick,
+          onWorkSessionCompleted,
+        },
+      ),
+    );
+
+    act(() => {
+      result.current.startWork();
+    });
+
+    act(() => {
+      jest.advanceTimersByTime(2000);
+    });
+
+    await act(async () => {
+      await Promise.resolve();
+    });
+
+    await waitFor(() => {
+      expect(onWorkTick).toHaveBeenCalled();
+    });
+
+    act(() => {
+      result.current.skip();
+    });
+
+    expect(onWorkSessionCompleted).toHaveBeenCalled();
+  });
 });

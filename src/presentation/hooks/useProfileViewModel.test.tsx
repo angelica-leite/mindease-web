@@ -1,6 +1,7 @@
 import { renderHook } from "@testing-library/react";
 
 import { useAuth } from "@/presentation/hooks/useAuth";
+import { useFocusStats } from "@/presentation/hooks/useFocusStats";
 import { useProfileViewModel } from "@/presentation/hooks/useProfileViewModel";
 import { useTasks } from "@/presentation/hooks/useTasks";
 
@@ -11,9 +12,13 @@ jest.mock("@/presentation/hooks/useAuth", () => ({
 jest.mock("@/presentation/hooks/useTasks", () => ({
   useTasks: jest.fn(),
 }));
+jest.mock("@/presentation/hooks/useFocusStats", () => ({
+  useFocusStats: jest.fn(),
+}));
 
 const useAuthMock = useAuth as jest.MockedFunction<typeof useAuth>;
 const useTasksMock = useTasks as jest.MockedFunction<typeof useTasks>;
+const useFocusStatsMock = useFocusStats as jest.MockedFunction<typeof useFocusStats>;
 
 describe("useProfileViewModel", () => {
   it("returns profile and completed tasks count", () => {
@@ -57,11 +62,21 @@ describe("useProfileViewModel", () => {
       login: jest.fn(),
       logout: jest.fn(),
     });
+    useFocusStatsMock.mockReturnValue({
+      stats: {
+        completedFocusSessions: 3,
+        totalFocusSeconds: 3720,
+      },
+      addFocusSecond: jest.fn(),
+      registerCompletedSession: jest.fn(),
+    });
 
     const { result } = renderHook(() => useProfileViewModel());
 
     expect(result.current.completedTasks).toBe(1);
     expect(result.current.profile?.email).toBe("carla@example.com");
     expect(result.current.memberSince).toContain("2026");
+    expect(result.current.completedFocusSessions).toBe(3);
+    expect(result.current.totalFocusTime).toBe("1h 02m");
   });
 });
