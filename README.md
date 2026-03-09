@@ -6,6 +6,8 @@ Aplicação web focada em organização de tarefas com abordagem de acessibilida
 
 O MindEase Web oferece:
 
+- Camada de autenticação com login, cadastro e sessão local
+
 - Gestão de tarefas em colunas (`todo`, `in-progress`, `done`)
 
 - Timer Pomodoro para foco
@@ -19,17 +21,13 @@ Atualmente, o projeto é frontend-only, com persistência local via `localStorag
 ## 2. Stack técnica
 
 - Framework: `Next.js 16` (App Router)
-
 - UI: `React 19` + `TypeScript` (strict)
-
 - Estilos: `Tailwind CSS v4` + `shadcn/ui` + `tw-animate-css`
 
 - Ícones: `lucide-react`
 
 - Motion: `framer-motion`
-
 - Qualidade: `ESLint 9` + `Prettier 3`
-
 - Testes: `Jest 30` + `Testing Library`
 
 ## 3. Pré-requisitos
@@ -37,16 +35,11 @@ Atualmente, o projeto é frontend-only, com persistência local via `localStorag
 - Node.js `20+` (LTS recomendado)
 - npm `10+`
 
-O projeto não possui `.env.example` e, hoje, não depende de variáveis de ambiente.
-
 ## 4. Setup rápido.
 
 ```bash
-
 npm install
-
 npm run dev
-
 ```
 
 Aplicação em `http://localhost:3000`.
@@ -60,11 +53,8 @@ Aplicação em `http://localhost:3000`.
 - `npm run start`: executa build de produção.
 
 - `npm run lint`: lint com ESLint
-
 - `npm run test`: testes
-
 - `npm run test:watch`: testes em watch mode
-
 - `npm run test:coverage`: cobertura de testes
 
 - `npm run format`: formata código
@@ -87,72 +77,27 @@ src/
 
   presentation/   # Páginas, componentes, hooks e estado de UI
 
-### 6.1 Responsabilidades por camada
+## 7. Rotas
 
-- `domain`
+Públicas:
 
-  - `entities/task.ts`: modelos centrais
+- `/login`
+- `/cadastro`
 
-  - `repositories/task-repository.ts`: contrato de persistência
-
-  - `use-cases/*`: regras de negócio
-
-- `application`
-
-  - `tasks/add-tasks.ts`: criação de tarefa com `id` e `createdAt`
-
-- `infra`
-
-  - `repositories/local-storage/task-repository.local.ts`: persistência local
-
-  - `di/tasks.ts`: composição dos casos de uso
-
-- `presentation`
-
-  - UI client-side, hooks de ViewModel e contexto global de acessibilidade.
-
-- `app`
-
-  - Entradas de rota que delegam para componentes da `presentation`
-
-### 6.2 Fluxo de dados de tarefas
-
-1. Página/componente dispara ação.
-
-2. Hook de ViewModel usa `useTasks`.
-
-3. `useTasks` resolve casos de uso via `makeTasks()`.
-
-4. Caso de uso executa regra de negócio.
-
-5. Repositório salva em `localStorage`.
-
-6. UI renderiza estado atualizado.
-
-## 7. Rotas.
-
-- `/` redireciona para `/dashboard`
+Protegidas:
 
 - `/dashboard`
-
 - `/tasks`
-
 - `/pomodoro`
-
 - `/profile`
-
 - `/settings`
 
-Layout principal em `src/app/(main)/layout.tsx`, com `Sidebar` (desktop) e `MobileNav` (mobile).
-
-## 8. Acessibilidade.
+## 8. Acessibilidade
 
 `AccessibilityProvider` centraliza preferências de UX:
 
 - Persistência em `localStorage` (`mindease-accessibility`)
-
 - Aplicação de CSS variables
-
 - Toggles globais: `reduce-motion`, `high-contrast`, `simplified-view`
 
 ## 9. Testes
@@ -162,10 +107,14 @@ Cobertura atual inclui:
 - Casos de uso (domain/application)
 - Repositório de infra
 - Hooks de ViewModel
+- Componentes e páginas principais
+- Contexto e páginas de autenticação
 
-- Componentes e páginas principais.
+## 10. Segurança
 
-## 10. CI/CD
+A autenticação é local (frontend-only) e usa `localStorage` para fins de protótipo.
+
+## 11. CI/CD
 
 - CI em `.github/workflows/ci.yml`
 

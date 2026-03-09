@@ -1,14 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { Brain } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Brain, LogOut } from "lucide-react";
 
+import { useAuth } from "@/presentation/hooks/useAuth";
 import { useNavigation } from "@/presentation/hooks/useNavigation";
 import { cn } from "@/presentation/lib/utils";
 import { sidebarClasses as styles } from "@/presentation/layouts/Sidebar.styles";
 
 export function Sidebar() {
+  const router = useRouter();
   const { items } = useNavigation();
+  const { profile, logout } = useAuth();
+
+  function handleLogout() {
+    logout();
+    router.replace("/login");
+  }
 
   return (
     <aside className={styles.root}>
@@ -41,6 +50,14 @@ export function Sidebar() {
         </nav>
 
         <div className={styles.footer}>
+          <div className={styles.userInfo}>
+            <p className={styles.userName}>{profile?.name ?? "Usuario"}</p>
+            <p className={styles.userEmail}>{profile?.email ?? "sem-email@example.com"}</p>
+          </div>
+          <button type="button" className={styles.logoutButton} onClick={handleLogout}>
+            <LogOut />
+            Sair da conta
+          </button>
           <p className={styles.footerText}>FIAP Inclusive (c) 2025</p>
         </div>
       </div>
