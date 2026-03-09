@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Clock, GripVertical } from "lucide-react";
 
 import type { Task, TaskStatus } from "@/domain/entities/task";
@@ -16,6 +16,7 @@ interface TaskCardProps {
 }
 
 export function TaskCard({ task, onStatusChange, onChecklistToggle }: Readonly<TaskCardProps>) {
+  const shouldReduceMotion = useReducedMotion();
   const {
     action,
     hasChecklist,
@@ -35,7 +36,7 @@ export function TaskCard({ task, onStatusChange, onChecklistToggle }: Readonly<T
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      whileHover={{ y: -2 }}
+      whileHover={shouldReduceMotion ? undefined : { y: -2 }}
       className={taskClassName}
     >
       <div className={styles.content}>
@@ -82,6 +83,7 @@ export function TaskCard({ task, onStatusChange, onChecklistToggle }: Readonly<T
                     className={styles.progressFill}
                     initial={{ width: 0 }}
                     animate={{ width: `${checklistProgress * 100}%` }}
+                    transition={shouldReduceMotion ? { duration: 0 } : undefined}
                   />
                 </div>
               )}

@@ -1,15 +1,15 @@
-export const dashboardClientClasses = {
+﻿export const dashboardClientClasses = {
   page: "space-y-8",
   hero: "flex items-end justify-between",
   title: "mb-1 text-3xl font-display font-bold text-foreground",
-  subtitle: "text-muted-foreground",
+  subtitle: "detail-explanatory text-muted-foreground",
   focusButton: "mindease-button-primary",
   focusButtonIcon: "mr-2 h-4 w-4",
   columnsGrid: "dashboard-columns grid gap-6 md:grid-cols-2",
   sectionHeader: "mb-4 flex items-center justify-between",
   sectionTitle: "font-display font-semibold text-foreground",
   sectionLink: "flex items-center gap-1 text-sm text-primary hover:underline",
-  sectionLinkIcon: "h-3 w-3",
+  sectionLinkIcon: "icon-nonessential h-3 w-3",
   cardsStack: "space-y-3",
   emptyStateCard: "mindease-card py-8 text-center",
   emptyStateText: "text-muted-foreground",

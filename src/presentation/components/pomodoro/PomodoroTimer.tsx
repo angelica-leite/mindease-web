@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Pause, Play, RotateCcw, SkipForward } from "lucide-react";
 
 import { Button } from "@/presentation/components/ui/button";
@@ -16,6 +16,7 @@ interface PomodoroTimerProps {
 }
 
 export function PomodoroTimer({ controller }: PomodoroTimerProps) {
+  const shouldReduceMotion = useReducedMotion();
   const {
     phaseState,
     formattedTime,
@@ -59,7 +60,7 @@ export function PomodoroTimer({ controller }: PomodoroTimerProps) {
             strokeDasharray={circleCircumference}
             initial={{ strokeDashoffset: circleCircumference }}
             animate={{ strokeDashoffset }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, ease: "easeOut" }}
           />
         </svg>
 

@@ -1,7 +1,7 @@
 export const taskCardClasses = {
   content: "flex items-start gap-3",
-  dragHandle: "cursor-grab opacity-0 transition-opacity group-hover:opacity-100",
-  dragIcon: "h-5 w-5 text-muted-foreground",
+  dragHandle: "icon-parent cursor-grab opacity-0 transition-opacity group-hover:opacity-100",
+  dragIcon: "icon-nonessential h-5 w-5 text-muted-foreground",
   body: "min-w-0 flex-1",
   header: "mb-2 flex items-start justify-between gap-2",
   description: "task-card-description mb-3 line-clamp-2 text-sm text-muted-foreground",
@@ -16,6 +16,6 @@ export const taskCardClasses = {
   progressFill: "h-full rounded-full bg-success",
   footer: "task-card-footer flex items-center justify-between border-t border-border pt-2",
   estimate: "task-card-estimate flex items-center gap-1 text-xs text-muted-foreground",
-  estimateIcon: "h-3.5 w-3.5",
-  actionIcon: "h-3.5 w-3.5",
+  estimateIcon: "icon-nonessential h-3.5 w-3.5",
+  actionIcon: "icon-nonessential h-3.5 w-3.5",
 } as const;

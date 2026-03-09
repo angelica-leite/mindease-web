@@ -50,6 +50,19 @@ export function useAccessibilityPanelViewModel() {
     setDetailLevel: (detailLevel: (typeof detailLevels)[number]["value"]) =>
       updateSettings({ detailLevel }),
     setReducedMotion: (reducedMotion: boolean) => updateSettings({ reducedMotion }),
-    setSimplifiedView: (simplifiedView: boolean) => updateSettings({ simplifiedView }),
+    setSimplifiedView: (simplifiedView: boolean) =>
+      updateSettings(
+        simplifiedView
+          ? {
+              simplifiedView: true,
+              complexityLevel: "low",
+              detailLevel: "summary",
+            }
+          : {
+              simplifiedView: false,
+              complexityLevel: "medium",
+              detailLevel: "detailed",
+            },
+      ),
   };
 }

@@ -59,4 +59,42 @@ describe("useAccessibilityPanelViewModel", () => {
     expect(updateSettings).toHaveBeenCalledWith({ complexityLevel: "low" });
     expect(updateSettings).toHaveBeenCalledWith({ detailLevel: "summary" });
   });
+
+  it("syncs complexity/detail when simplified view is toggled", () => {
+    const updateSettings = jest.fn();
+    useAccessibilityMock.mockReturnValue({
+      settings: {
+        fontSize: "medium",
+        contrast: "normal",
+        spacing: "comfortable",
+        complexityLevel: "high",
+        detailLevel: "detailed",
+        reducedMotion: false,
+        simplifiedView: false,
+      },
+      updateSettings,
+    });
+
+    const { result } = renderHook(() => useAccessibilityPanelViewModel());
+
+    act(() => {
+      result.current.setSimplifiedView(true);
+    });
+
+    expect(updateSettings).toHaveBeenCalledWith({
+      simplifiedView: true,
+      complexityLevel: "low",
+      detailLevel: "summary",
+    });
+
+    act(() => {
+      result.current.setSimplifiedView(false);
+    });
+
+    expect(updateSettings).toHaveBeenCalledWith({
+      simplifiedView: false,
+      complexityLevel: "medium",
+      detailLevel: "detailed",
+    });
+  });
 });
